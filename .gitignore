@@ -1,0 +1,16 @@
+# Datos (IGNORAR TODO LO QUE OCUPE ESPACIO)
+data/BONN/raw/
+data/BONN/processed/
+data/CHB-MIT/
+
+# Archivos binarios de Python
+__pycache__/
+*.pyc
+*.npy
+
+# Entornos virtuales (si usas uno)
+venv/
+.env/
+
+# Resultados y Checkpoints
+checkpoints/
