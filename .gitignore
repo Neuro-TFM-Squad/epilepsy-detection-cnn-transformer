@@ -1,16 +1,17 @@
-# Datos (IGNORAR TODO LO QUE OCUPE ESPACIO)
-data/BONN/raw/
-data/BONN/processed/
-data/CHB-MIT/
+# Ignorar TODA la carpeta de datos, no importa lo que haya dentro
+data/
 
-# Archivos binarios de Python
+# Ignorar archivos pesados por extensión (por si están fuera de /data)
+*.edf
+*.bin
+*.npy
+*.pdf
+
+# Python y Entornos
 __pycache__/
 *.pyc
-*.npy
+.ipynb_checkpoints/
 
-# Entornos virtuales (si usas uno)
-venv/
-.env/
-
-# Resultados y Checkpoints
+# Resultados
 checkpoints/
+experiments/
