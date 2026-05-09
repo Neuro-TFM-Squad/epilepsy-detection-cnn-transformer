@@ -40,7 +40,11 @@ val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 # ==========================================
 # 2. MODELO Y OPTIMIZADOR
 # ==========================================
+<<<<<<< HEAD
 model = BaselineCNN().to(device)
+=======
+model = BaselineCNN(in_channels=1, num_classes=1).to(device)
+>>>>>>> master
 criterion = nn.BCEWithLogitsLoss()
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
@@ -50,7 +54,11 @@ patience_counter = 0
 best_val_loss = float('inf')
 
 os.makedirs("models", exist_ok=True)
+<<<<<<< HEAD
 best_model_path = "models/baseline_cnn_bonn_noise.pth"
+=======
+best_model_path = "models/baseline_cnn_bonn_noise_k15.pth"
+>>>>>>> master
 
 # ==========================================
 # 3. BUCLE DE ENTRENAMIENTO
@@ -65,8 +73,13 @@ for epoch in range(max_epochs):
     
     for x, y in train_bar:
         x = x.to(device)
+<<<<<<< HEAD
         # Aseguramos que la etiqueta tenga la forma [B, 1] para BCEWithLogitsLoss
         y = y.to(device).float()
+=======
+        y=y.unsqueeze(1).float().to(device)  # Aseguramos que y tenga forma [B, 1] para BCEWithLogitsLoss
+
+>>>>>>> master
         
         optimizer.zero_grad()
         logits = model(x)
@@ -90,7 +103,11 @@ for epoch in range(max_epochs):
     with torch.no_grad():
         for x, y in val_bar:
             x = x.to(device)
+<<<<<<< HEAD
             y = y.to(device).float()
+=======
+            y=y.unsqueeze(1).float().to(device)
+>>>>>>> master
             
             logits = model(x)
             loss = criterion(logits, y)

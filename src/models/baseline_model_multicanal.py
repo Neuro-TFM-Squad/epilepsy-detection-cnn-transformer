@@ -44,13 +44,21 @@ class SpatioTemporalCNN(nn.Module):
             spatial_filters, 
             kernel_size=1
         )
+<<<<<<< HEAD
         self.bn_spat = nn.BatchNorm1d(spatial_filters)
+=======
+        self.bn_spat = nn.InstanceNorm1d(spatial_filters, affine=True)
+>>>>>>> master
         
         # ==========================================
         # 4. REDUCCIÓN Y EXTRACCIÓN (Pooling)
         # ==========================================
         self.pool = nn.AvgPool1d(kernel_size=8, stride=8)
+<<<<<<< HEAD
         self.dropout = nn.Dropout(p=0.5)
+=======
+        self.spatial_dropout = nn.Dropout1d(p=0.1)
+>>>>>>> master
         
         self.conv_refine = nn.Conv1d(
             spatial_filters, 
@@ -58,13 +66,21 @@ class SpatioTemporalCNN(nn.Module):
             kernel_size=3, 
             padding=1
         )
+<<<<<<< HEAD
         self.bn_refine = nn.BatchNorm1d(spatial_filters * 2)
+=======
+        self.bn_refine = nn.InstanceNorm1d(spatial_filters * 2, affine=True)
+>>>>>>> master
         self.refine_shortcut = nn.Conv1d(
             spatial_filters, 
             spatial_filters * 2, 
             kernel_size=1
         )
         self.pool2 = nn.AvgPool1d(kernel_size=4, stride=4)
+<<<<<<< HEAD
+=======
+        self.dropout = nn.Dropout(p=0.3)
+>>>>>>> master
         
         # ==========================================
         # 5. CÁLCULO DINÁMICO DE LA DIMENSIÓN FINAL
@@ -118,7 +134,11 @@ class SpatioTemporalCNN(nn.Module):
         
         # ===== POOL 1 =====
         x = self.pool(x)
+<<<<<<< HEAD
         x = self.dropout(x)
+=======
+        x = self.spatial_dropout(x)
+>>>>>>> master
         
         # ===== BLOQUE 3: REFINE =====
         residual3 = self.refine_shortcut(x)
@@ -129,14 +149,22 @@ class SpatioTemporalCNN(nn.Module):
         
         # ===== POOL 2 + FLATTEN =====
         x = self.pool2(x)
+<<<<<<< HEAD
         x = self.dropout(x)
+=======
+        x = self.spatial_dropout(x)
+>>>>>>> master
         x_flat = x.view(x.size(0), -1)
         
         # ===== SALIDA =====
         # Si la usamos dentro de LSTM/Transformer, cortamos antes de la FC
         if return_embedding:
             return x_flat
+<<<<<<< HEAD
             
+=======
+        x_flat = self.dropout(x_flat)    
+>>>>>>> master
         return self.fc(x_flat)
         
     def get_spatial_attention(self, x_after_spatial):
