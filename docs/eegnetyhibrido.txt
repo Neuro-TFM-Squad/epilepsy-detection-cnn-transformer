@@ -1,0 +1,389 @@
+Resumen general de los dos modelos
+En el proyecto estamos comparando dos enfoques principales para detectar crisis epilépticas en EEG cross-patient:
+
+EEGNet, que actúa como baseline compacto.
+
+El modelo híbrido espacio-temporal, que intenta aprovechar una inicialización/preentrenamiento desde Bonn para mejorar la extracción de patrones útiles en CHB-MIT.
+
+La idea de fondo es que ambos modelos reciben las mismas señales preprocesadas, se entrenan con el mismo protocolo general y se evalúan con la misma evaluación clínica. Así, la comparación es justa y se puede ver si la arquitectura más elaborada aporta una mejora real o no.
+
+1) EEGNet
+Qué es
+EEGNet es una arquitectura pensada específicamente para EEG. No es una red cualquiera aplicada a señales biomédicas, sino un diseño ligero que intenta capturar dos cosas importantes:
+
+Patrones temporales, es decir, cómo cambia la señal a lo largo del tiempo.
+
+Patrones espaciales entre canales, es decir, cómo se relacionan los electrodos entre sí.
+
+Su objetivo no es ser enorme ni muy profunda, sino ser eficiente, estable y bastante interpretable para señales EEG.
+
+Qué problema intenta resolver
+En EEG, las crisis no siempre se ven como una forma de onda simple. A veces aparecen como cambios temporales, a veces como patrones repartidos en varios canales, y además hay mucho ruido, mucha variabilidad entre pacientes y un desbalance enorme entre fondo normal y crisis.
+
+EEGNet intenta resolver esto con una arquitectura compacta que:
+
+aprenda filtros temporales útiles,
+
+combine información entre canales,
+
+y reduzca el número de parámetros para no sobreajustar tanto.
+
+Eso es importante porque en cross-patient el problema principal no es solo “clasificar”, sino generalizar a pacientes nunca vistos.
+
+Cómo está construida
+EEGNet suele seguir una estructura parecida a esta:
+
+1. Bloque temporal
+Primero aplica convoluciones sobre la dimensión temporal.
+Esto sirve para detectar patrones como:
+
+oscilaciones,
+
+cambios bruscos,
+
+ritmos repetitivos,
+
+y pequeñas estructuras de la señal que pueden estar asociadas a actividad ictal.
+
+Aquí la red aprende filtros que actúan como detectores de formas temporales.
+
+2. Bloque espacial
+Después intenta combinar información entre canales.
+En EEG esto es clave porque una crisis no siempre afecta a un solo canal: muchas veces hay distribución espacial, propagación o diferencias de amplitud entre regiones.
+
+El bloque espacial permite que la red aprenda qué combinación de canales es útil para discriminar crisis y no-crisis.
+
+3. Depthwise / separable convolutions
+EEGNet usa convoluciones separables o por profundidad para reducir parámetros.
+La idea es no mezclar todo de golpe con una convolución gigante, sino separar parte del trabajo:
+
+primero extrae patrones por canal o por filtro,
+
+luego los combina de manera más eficiente.
+
+Eso ayuda a que el modelo sea más ligero y a veces más robusto.
+
+4. Normalización y pooling
+Normalmente incluye capas de normalización y reducción de dimensionalidad con pooling.
+Esto sirve para:
+
+estabilizar el entrenamiento,
+
+evitar que pequeñas variaciones de escala dominen la salida,
+
+y resumir la información más importante.
+
+5. Capa final de clasificación
+Al final, una capa totalmente conectada produce una salida binaria:
+
+probabilidad de crisis,
+
+o score de crisis/no crisis.
+
+Qué hace bien
+EEGNet tiene varias ventajas:
+
+Es relativamente simple.
+
+Entrena rápido.
+
+Tiene pocos parámetros.
+
+Sirve como referencia muy razonable.
+
+Es más fácil de explicar que modelos mucho más grandes.
+
+Qué limitaciones tiene
+En cross-patient, EEGNet puede quedarse corto porque:
+
+el dominio cambia mucho entre pacientes,
+
+la señal tiene alta variabilidad,
+
+y la red puede no captar suficiente estructura si el patrón útil es más complejo.
+
+En otras palabras: EEGNet es un buen baseline, pero no necesariamente la mejor solución final para este problema.
+
+2) Modelo híbrido espacio-temporal
+Qué es
+El modelo híbrido es una versión más ambiciosa. La idea es mantener la parte útil de una arquitectura espacio-temporal, pero aprovechando preentrenamiento desde Bonn para arrancar con filtros temporales más informados.
+
+No se trata de mezclar Bonn y CHB-MIT como si fueran exactamente el mismo problema. La idea es distinta:
+
+Bonn se usa solo como fuente de preentrenamiento o inicialización.
+
+CHB-MIT es el dominio clínico real donde se evalúa el modelo.
+
+El objetivo es que el conocimiento aprendido en Bonn ayude a inicializar la parte temporal del modelo para CHB-MIT.
+
+Qué problema intenta resolver
+La gran dificultad en CHB-MIT es el domain shift:
+
+pacientes distintos,
+
+ruido distinto,
+
+amplitudes distintas,
+
+patrones de crisis distintos,
+
+y una distribución muy desigual entre crisis y fondo.
+
+El híbrido intenta ser más robusto que EEGNet porque:
+
+parte de filtros temporales ya “preparados”,
+
+puede capturar mejor estructuras relevantes,
+
+y tiene más capacidad para adaptarse sin empezar desde cero.
+
+Cómo funciona la idea Bonn → CHB-MIT
+La lógica es esta:
+
+Se entrena o se toma un modelo de Bonn.
+
+Se extraen los pesos útiles, sobre todo del bloque temporal.
+
+Se inicializa con ellos el modelo híbrido para CHB-MIT.
+
+Se congela inicialmente esa parte temporal para no destruir lo aprendido.
+
+Luego se entrena el resto del modelo.
+
+Más adelante, si hace falta, se descongela el bloque temporal para un ajuste fino.
+
+La idea no es copiar Bonn tal cual, sino usarlo como arranque informado.
+
+Qué partes tiene
+Aunque la implementación concreta puede variar, la lógica general del híbrido suele ser algo así:
+
+1. Bloque temporal inicializado desde Bonn
+Es la parte más importante de la transferencia.
+
+Este bloque aprende filtros sobre la evolución temporal de la señal.
+Como viene de Bonn, se espera que ya haya capturado ciertos patrones generales relacionados con actividad epileptiforme o diferencias entre clases.
+
+Eso no garantiza que funcione perfecto en CHB-MIT, pero sí puede dar una inicialización mejor que pesos aleatorios.
+
+2. Bloque espacial
+Después de la parte temporal, el modelo combina la información entre canales.
+
+Esto es fundamental porque en CHB-MIT el comportamiento entre electrodos importa mucho.
+La crisis puede no verse igual en todos los canales, y la combinación espacial puede ayudar a separar mejor crisis de fondo.
+
+3. Bloque de normalización
+En cross-patient es muy útil normalizar bien para reducir el impacto de diferencias de amplitud entre pacientes.
+
+Por eso el híbrido suele apoyarse en normalización interna del modelo y en el preprocesado con z-score por ventana y canal.
+
+4. Capa de clasificación
+Finalmente, una capa densa produce el score binario de crisis/no crisis.
+
+La salida no se interpreta directamente como diagnóstico final, sino como una probabilidad que luego se postprocesa para la evaluación clínica.
+
+Qué aporta frente a EEGNet
+La ventaja esperada del híbrido es que:
+
+no empieza desde cero,
+
+aprovecha conocimiento previo de señales epileptiformes,
+
+y puede aprender representaciones más estables en CHB-MIT.
+
+En teoría, eso debería ayudar especialmente cuando:
+
+el dataset objetivo es pequeño respecto al problema,
+
+hay mucho desbalance,
+
+y la generalización cross-patient es el cuello de botella.
+
+Qué riesgo tiene
+El riesgo principal es que la transferencia no encaje bien si Bonn y CHB-MIT tienen diferencias fuertes de dominio.
+Por eso no conviene venderlo como “mejor seguro”, sino como una hipótesis razonable que hay que validar clínicamente.
+
+Además, si se deja demasiada libertad al modelo, puede:
+
+sobreajustar,
+
+perder la utilidad de la inicialización,
+
+o volverse demasiado permisivo con falsos positivos.
+
+3) Diferencia conceptual entre ambos
+La diferencia clave no es solo la arquitectura, sino la filosofía:
+
+EEGNet
+Modelo compacto.
+
+Aprende desde cero.
+
+Sirve como baseline sólido.
+
+Busca una solución simple y eficiente.
+
+Híbrido
+Modelo más guiado.
+
+Parte de conocimiento previo de Bonn.
+
+Intenta mejorar la extracción de patrones relevantes.
+
+Busca mejor comportamiento clínico cross-patient.
+
+Dicho de forma simple:
+
+EEGNet pregunta: “¿Puedo resolver esto con una red pequeña y bien diseñada?”
+
+Híbrido pregunta: “¿Puedo arrancar desde filtros ya útiles y adaptarlos al problema real?”
+
+4) Cómo se entrenan
+Aunque cada uno tiene su implementación, el protocolo general es muy parecido.
+
+Entrada común
+Ambos usan las mismas ventanas de EEG preprocesadas:
+
+ventanas de 1 segundo,
+
+18 canales,
+
+normalización z-score por ventana y canal,
+
+y un dataset ya preparado para CHB-MIT.
+
+Función de pérdida
+La base suele ser una BCE con logits, a veces con:
+
+pos_weight para compensar el desbalance,
+
+y opcionalmente un pequeño suavizado de etiquetas.
+
+Esto tiene sentido porque el problema tiene muchas más ventanas de fondo que de crisis.
+
+Desbalanceo
+El desbalance es enorme, así que el entrenamiento tiene que ser prudente:
+
+no se debe castigar demasiado la clase positiva,
+
+pero tampoco ignorarla,
+
+porque entonces el modelo aprende a predecir casi siempre fondo.
+
+Por eso se usa pos_weight, pero con un límite razonable para no descompensar el entrenamiento.
+
+Gradient clipping
+Se aplica clipping de gradiente para evitar explosiones y mejorar estabilidad.
+Esto es bastante importante en señales EEG, donde a veces el entrenamiento puede ser inestable.
+
+EMA
+En algunos casos se mantiene una media exponencial de los pesos.
+Eso ayuda a suavizar el entrenamiento y a menudo da una versión más estable del modelo al evaluar.
+
+Calibración
+Después del entrenamiento, se puede calibrar la salida con temperature scaling.
+Esto sirve para que las probabilidades estén mejor ajustadas, especialmente si el modelo da scores demasiado altos o demasiado conservadores.
+
+Early stopping
+No se para el entrenamiento mirando solo la loss.
+Se para mirando una métrica clínica compuesta, sobre todo:
+
+sensibilidad por evento,
+
+falsas alarmas por hora,
+
+y el equilibrio entre ambas.
+
+Eso es importante porque en este TFM no interesa solo “bajar la loss”, sino conseguir un comportamiento clínicamente defendible.
+
+5) Cómo se evalúan clínicamente
+La evaluación final no se hace ventana a ventana de forma aislada, sino por eventos de crisis.
+
+Qué significa esto
+No basta con que el modelo acierte muchas ventanas sueltas.
+Lo importante es:
+
+detectar la crisis al menos una vez,
+
+no disparar demasiadas falsas alarmas,
+
+y hacerlo con una latencia aceptable.
+
+Postprocesado
+Antes de convertir las probabilidades en eventos, se suele aplicar:
+
+suavizado temporal con media móvil,
+
+umbral de decisión,
+
+duración mínima de evento,
+
+y fusión de eventos cercanos.
+
+Eso transforma una secuencia ruidosa de probabilidades en predicciones clínicas más interpretables.
+
+Métricas clínicas
+Las métricas clave son:
+
+Sensibilidad por evento: cuántas crisis reales se detectan al menos una vez.
+
+FA/h: cuántas falsas alarmas da el sistema por hora.
+
+F1 por evento: apoyo adicional, pero no la métrica principal.
+
+Latencia: cuánto tarda el modelo en detectar la crisis desde su inicio.
+
+Por qué esto importa
+Un modelo puede tener una precisión por ventana decente y aun así ser clínicamente malo si:
+
+da demasiadas falsas alarmas,
+
+o detecta demasiado tarde.
+
+Por eso la evaluación clínica es la que realmente define si el sistema sirve.
+
+6) Qué significa cada modelo en el contexto del TFM
+En el TFM, los dos modelos cumplen papeles distintos:
+
+EEGNet
+Se usa como referencia base.
+Si no funciona muy bien cross-patient, eso también es un resultado válido: demuestra que una arquitectura compacta estándar no basta para este problema tan difícil.
+
+Híbrido
+Es la propuesta central.
+Si mejora respecto a EEGNet, aunque no sea perfecto, aporta una historia muy buena:
+
+transferencia desde Bonn,
+
+mejor inicialización,
+
+y mejor equilibrio clínico.
+
+Si no mejora, también sirve como resultado metodológico: mostraría que la transferencia de un dominio sintético o de distinto dataset no se traduce fácilmente a CHB-MIT.
+
+7) Explicación corta y simple para tu compañero
+Si quieres explicárselo rápido a alguien, podrías decirle esto:
+
+EEGNet es una red pequeña diseñada para EEG. Aprende patrones temporales y espaciales de forma eficiente, y sirve como baseline.
+
+El híbrido es parecido, pero parte de pesos preentrenados en Bonn para inicializar mejor el bloque temporal. La idea es que llegue con filtros más útiles y se adapte después a CHB-MIT.
+
+Los dos se entrenan con las mismas ventanas, la misma loss base, el mismo control del desbalance y la misma evaluación clínica.
+
+La diferencia importante no es solo la red, sino qué tan bien generaliza a pacientes nuevos y cuántas falsas alarmas produce.
+
+8) Idea final
+La forma más justa de entenderlos es esta:
+
+EEGNet intenta resolver el problema con una solución compacta y general.
+
+El híbrido intenta resolverlo con una solución más informada, apoyándose en transferencia para capturar mejor la estructura temporal de las crisis.
+
+Y como en tu TFM lo importante es la viabilidad clínica cross-patient, ambos modelos se juzgan más por:
+
+sensibilidad por evento,
+
+falsas alarmas por hora,
+
+y estabilidad del score,
+
+que por una métrica aislada tipo accuracy o F1 por ventana.
