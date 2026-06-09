@@ -10,30 +10,27 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from sklearn.metrics import average_precision_score, roc_auc_score
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Subset
 from tqdm import tqdm
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if ROOT_DIR not in sys.path:
     sys.path.append(ROOT_DIR)
 
-from src.models.hibrido import SpatioTemporalCNN
 from src.datasets.seizureDatasetMulticanal import SeizureDatasetMultichannel
+from src.models.attention import AttentionCNN
 from src.utils.evaluador_clinico import ClinicalEvalConfig, ClinicalEvaluator
 
 
 @dataclass
 class TrainConfig:
     seed: int = 42
-    batch_size: int = 264
-    num_workers: int = 0
+    batch_size: int = 256
+    num_workers: int = 2
     max_epochs: int = 60
     patience: int = 10
 
-    head_lr: float = 1e-3
-    backbone_lr: float = 3e-4
-    temporal_lr: float = 1e-4
-    calibr_lr: float = 1e-2
+    lr: float = 3e-4
     weight_decay: float = 1e-4
     grad_clip_norm: float = 1.0
     amp: bool = True
@@ -42,11 +39,8 @@ class TrainConfig:
     pos_weight_cap: float = 4.0
 
     sequence_length: int = 1
-    augment_train: bool = True
-    temporal_kernel: int = 15
-    temporal_filters: int = 16
-    spatial_filters: int = 32
-    unfreeze_temporal_epoch: int = 10
+    augment_train: bool = False
+    dropout: float = 0.4
 
     train_patients: tuple = (
         'chb01', 'chb02', 'chb03', 'chb04',
@@ -65,8 +59,10 @@ class TrainConfig:
     threshold_grid: tuple = (0.01, 0.02, 0.05, 0.10, 0.15, 0.20, 0.30)
     moving_avg_grid: tuple = (1, 3, 5, 7)
 
+    calibr_lr: float = 1e-2
     calibr_epochs: int = 100
-    save_name: str = 'spatio_temporal_cnn_clinical_best_def.pth'
+
+    save_name: str = 'attention_cnn_clinical_best.pth'
 
 
 class SmoothedBCEWithLogitsLoss(nn.Module):
@@ -160,69 +156,16 @@ def build_subset_dataframe(index_df, target_patients):
     return subset_df
 
 
-def maybe_set_temporal_norm_eval(model):
-    if hasattr(model, 'bn_temp') and isinstance(model.bn_temp, nn.BatchNorm1d):
-        model.bn_temp.eval()
-
-
-def freeze_temporal_block(model, freeze=True):
-    for name, p in model.named_parameters():
-        if name.startswith('temporal_') or name.startswith('bn_temp'):
-            p.requires_grad = not freeze
-
-
-def inject_bonn_knowledge(chb_model, bonn_model_path, device, num_channels=18, freeze_temporal=True):
-    bonn_state_dict = torch.load(bonn_model_path, map_location=device, weights_only=False)
-    if 'block1.0.weight' not in bonn_state_dict:
-        raise KeyError("No se encontró 'block1.0.weight' en el checkpoint de Bonn.")
-
-    bonn_conv_weights = bonn_state_dict['block1.0.weight']
-    repeated_conv = bonn_conv_weights.repeat(num_channels, 1, 1)
-
-    with torch.no_grad():
-        chb_model.temporal_conv.weight.copy_(repeated_conv)
-
-        if 'block1.1.weight' in bonn_state_dict and hasattr(chb_model.bn_temp, 'weight') and chb_model.bn_temp.weight is not None:
-            chb_model.bn_temp.weight.copy_(bonn_state_dict['block1.1.weight'].repeat(num_channels))
-            chb_model.bn_temp.bias.copy_(bonn_state_dict['block1.1.bias'].repeat(num_channels))
-
-        if isinstance(chb_model.bn_temp, nn.BatchNorm1d):
-            chb_model.bn_temp.running_mean.copy_(bonn_state_dict['block1.1.running_mean'].repeat(num_channels))
-            chb_model.bn_temp.running_var.copy_(bonn_state_dict['block1.1.running_var'].repeat(num_channels))
-
-    if freeze_temporal:
-        freeze_temporal_block(chb_model, freeze=True)
-
-    return chb_model
-
-
-def make_optimizer(model, cfg, temporal_trainable=False):
-    head_params, backbone_params, temporal_params = [], [], []
-
-    for name, p in model.named_parameters():
-        if not p.requires_grad:
-            continue
-        if name.startswith('fc'):
-            head_params.append(p)
-        elif name.startswith('temporal_') or name.startswith('bn_temp'):
-            temporal_params.append(p)
-        else:
-            backbone_params.append(p)
-
-    param_groups = []
-    if head_params:
-        param_groups.append({'params': head_params, 'lr': cfg.head_lr})
-    if backbone_params:
-        param_groups.append({'params': backbone_params, 'lr': cfg.backbone_lr})
-    if temporal_trainable and temporal_params:
-        param_groups.append({'params': temporal_params, 'lr': cfg.temporal_lr})
-
-    return torch.optim.AdamW(param_groups, weight_decay=cfg.weight_decay)
+def make_optimizer(model, cfg):
+    return torch.optim.AdamW(
+        model.parameters(),
+        lr=cfg.lr,
+        weight_decay=cfg.weight_decay
+    )
 
 
 def train_one_epoch(model, loader, criterion, optimizer, scaler, device, cfg, ema=None):
     model.train()
-    maybe_set_temporal_norm_eval(model)
     losses, probs_all, labels_all = [], [], []
     autocast_enabled = cfg.amp and device.type == 'cuda'
 
@@ -419,12 +362,11 @@ def main():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     if device.type == 'cuda':
         torch.backends.cudnn.benchmark = True
-    print(f'🚀 Entrenando híbrido en {device}')
+    print(f'🚀 Entrenando atención en {device}')
 
     csv_path = os.path.join(ROOT_DIR, 'data', 'CHBMIT', 'processed', 'ventana1s', 'chbmit_index.csv')
     signals_bin = os.path.join(ROOT_DIR, 'data', 'CHBMIT', 'processed', 'ventana1s', 'chbmit_signals.bin')
     labels_bin = os.path.join(ROOT_DIR, 'data', 'CHBMIT', 'processed', 'ventana1s', 'chbmit_labels.bin')
-    ruta_pesos_bonn = os.path.join(ROOT_DIR, 'models', 'baseline_cnn_bonn_noise_k15.pth')
     save_path = os.path.join(ROOT_DIR, 'models', cfg.save_name)
 
     index_df = pd.read_csv(csv_path)
@@ -468,27 +410,14 @@ def main():
         drop_last=False,
     )
 
-    model = SpatioTemporalCNN(
-        in_channels=18,
-        window_size=256,
-        temporal_filters=cfg.temporal_filters,
-        spatial_filters=cfg.spatial_filters,
-    ).to(device)
-
-    model = inject_bonn_knowledge(
-        model,
-        ruta_pesos_bonn,
-        device,
-        num_channels=18,
-        freeze_temporal=True,
-    )
+    model = AttentionCNN(in_channels=18, num_classes=1, dropout=cfg.dropout).to(device)
 
     criterion = SmoothedBCEWithLogitsLoss(
         pos_weight=pos_weight,
         smoothing=cfg.label_smoothing,
     ).to(device)
 
-    optimizer = make_optimizer(model, cfg, temporal_trainable=False)
+    optimizer = make_optimizer(model, cfg)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         optimizer,
         mode='max',
@@ -514,17 +443,6 @@ def main():
 
     for epoch in range(cfg.max_epochs):
         print(f'\n--- Época {epoch + 1}/{cfg.max_epochs} ---')
-
-        if epoch == cfg.unfreeze_temporal_epoch:
-            freeze_temporal_block(model, freeze=False)
-            optimizer = make_optimizer(model, cfg, temporal_trainable=True)
-            scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-                optimizer,
-                mode='max',
-                factor=0.5,
-                patience=2,
-            )
-            print('🔓 Descongelado fino del bloque temporal.')
 
         train_metrics = train_one_epoch(
             model,

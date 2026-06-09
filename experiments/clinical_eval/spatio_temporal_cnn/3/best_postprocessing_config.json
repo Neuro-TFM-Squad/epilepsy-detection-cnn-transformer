@@ -1,0 +1,11 @@
+{
+  "window_step_s": 1.0,
+  "threshold": 0.7,
+  "moving_avg_size": 1,
+  "min_event_duration_s": 5.0,
+  "merge_gap_s": 10.0,
+  "pre_ictal_tolerance_s": 0.0,
+  "post_ictal_tolerance_s": 0.0,
+  "max_event_duration_s": null,
+  "eps": 1e-08
+}

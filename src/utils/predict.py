@@ -1,5 +1,3 @@
-# src/utils/predict.py
-
 from pathlib import Path
 import argparse
 import numpy as np
@@ -18,7 +16,9 @@ VAL_PATIENTS = ("chb05", "chb06")
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Generar predicciones por registro para evaluación clínica.")
+    parser = argparse.ArgumentParser(
+        description="Generar predicciones por registro para evaluación clínica."
+    )
     parser.add_argument(
         "--model",
         required=True,
@@ -36,12 +36,20 @@ def ensure_dir(path: Path):
     path.mkdir(parents=True, exist_ok=True)
 
 
+def resolve_output_dir(output_dir_arg: str) -> Path:
+    p = Path(output_dir_arg)
+    return p if p.is_absolute() else (PROJECT_ROOT / p)
+
+
 def build_subset_dataframe(index_df, target_patients):
     df = index_df.copy()
+
     if "patient_id" not in df.columns:
-        df["patient_id"] = df["filepath"].apply(lambda x: x.split("_")[0])
-    dfs = [df[df["patient_id"] == p] for p in target_patients]
-    return pd.concat(dfs).reset_index(drop=True)
+        df["patient_id"] = df["filepath"].apply(lambda x: Path(x).stem.split("_")[0])
+
+    df = df[df["patient_id"].isin(target_patients)].copy()
+    df = df.sort_values(["patient_id", "record_id", "window_index"]).reset_index(drop=True)
+    return df
 
 
 def build_model(model_name: str):
@@ -94,7 +102,7 @@ def predict_subset(model, dataset, indices, batch_size, num_workers, device):
         batch_size=batch_size,
         shuffle=False,
         num_workers=num_workers,
-        pin_memory=(device == "cuda"),
+        pin_memory=str(device).startswith("cuda"),
         persistent_workers=num_workers > 0,
     )
 
@@ -102,25 +110,45 @@ def predict_subset(model, dataset, indices, batch_size, num_workers, device):
     for signals, _ in loader:
         signals = signals.to(device, non_blocking=True)
         logits = model(signals)
-        batch_probs = torch.sigmoid(logits).cpu().numpy().reshape(-1)
+        batch_probs = torch.sigmoid(logits).detach().cpu().numpy().reshape(-1)
         probs.append(batch_probs)
 
     return np.concatenate(probs) if probs else np.array([], dtype=np.float32)
 
 
-def save_predictions_per_record(subset_df, val_idx, probs, output_dir: Path):
-    val_df = subset_df.loc[val_idx].copy().reset_index(drop=True)
-    val_df["record_id"] = val_df["filepath"].apply(lambda x: Path(x).stem.rsplit("_win", 1)[0] if "_win" in Path(x).stem else Path(x).stem)
-    val_df["prob"] = probs
+def save_predictions_per_record(val_df, probs, output_dir: Path):
+    if len(val_df) != len(probs):
+        raise ValueError(
+            f"Desajuste entre ventanas y probabilidades: "
+            f"len(val_df)={len(val_df)} vs len(probs)={len(probs)}"
+        )
+
+    val_df = val_df.copy().reset_index(drop=True)
+    val_df["record_id"] = val_df["filepath"].apply(
+        lambda x: Path(x).stem.rsplit("_win", 1)[0] if "_win" in Path(x).stem else Path(x).stem
+    )
+    val_df["prob"] = probs.astype(np.float32)
+
+    print(f"Guardando predicciones por registro en: {output_dir}")
 
     for record_id, group in val_df.groupby("record_id", sort=False):
         out_path = output_dir / f"{record_id}.pt"
+        arr = group["prob"].to_numpy(dtype=np.float32)
+
         torch.save(
             {
                 "record_id": record_id,
-                "y_pred_prob": group["prob"].to_numpy(dtype=np.float32),
+                "y_pred_prob": arr,
             },
             out_path
+        )
+
+        print(
+            f"[SAVE] {record_id} | "
+            f"n_windows={len(arr)} | "
+            f"min={float(arr.min()):.4f} "
+            f"max={float(arr.max()):.4f} "
+            f"mean={float(arr.mean()):.4f}"
         )
 
 
@@ -128,14 +156,14 @@ def main():
     args = parse_args()
 
     checkpoint_path = Path(args.checkpoint)
-    output_dir = PROJECT_ROOT / args.output_dir
+    output_dir = resolve_output_dir(args.output_dir)
 
     ensure_dir(output_dir)
 
-    print(f"Modelo : {args.model}")
+    print(f"Modelo     : {args.model}")
     print(f"Checkpoint : {checkpoint_path}")
     print(f"Output dir : {output_dir}")
-    print(f"Device : {args.device}")
+    print(f"Device     : {args.device}")
 
     csv_path = PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "ventana1s" / "chbmit_index.csv"
     signals_bin = PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "ventana1s" / "chbmit_signals.bin"
@@ -143,12 +171,18 @@ def main():
 
     index_df = pd.read_csv(csv_path)
     subset_df = build_subset_dataframe(
-    index_df,
-    ("chb01", "chb02", "chb03", "chb04",
-     "chb05", "chb06", "chb07", "chb08",
-     "chb09", "chb10")
+        index_df,
+        ("chb01", "chb02", "chb03", "chb04",
+         "chb05", "chb06", "chb07", "chb08",
+         "chb09", "chb10")
     )
-    val_idx = subset_df[subset_df["patient_id"].isin(VAL_PATIENTS)].index.tolist()
+
+    val_df = subset_df[subset_df["patient_id"].isin(VAL_PATIENTS)].copy().reset_index(drop=True)
+    val_idx = val_df.index.tolist()
+
+    print(f"Total ventanas subset : {len(subset_df)}")
+    print(f"Total ventanas val    : {len(val_df)}")
+    print(f"Pacientes val         : {VAL_PATIENTS}")
 
     val_dataset = SeizureDatasetMultichannel(
         signals_path=str(signals_bin),
@@ -169,15 +203,12 @@ def main():
         device=args.device,
     )
 
-    save_predictions_per_record(subset_df, val_idx, probs, output_dir)
+    print(f"Probabilidades generadas: {len(probs)}")
+
+    save_predictions_per_record(val_df, probs, output_dir)
 
     print("Predicciones guardadas correctamente por registro.")
 
 
 if __name__ == "__main__":
     main()
-
-
-# python -m src.utils.predict --model attention_cnn --checkpoint .\models\attention_cnn_clinical_best.pth --output_dir .\experiments\predictions\attention_cnn\1
-# python -m src.utils.predict --model spatio_temporal_cnn --checkpoint .\models\spatio_temporal_cnn_clinical_best.pth --output_dir .\experiments\predictions\spatio_temporal_cnn\1
-# python -m src.utils.predict --model eegnet --checkpoint .\models\eegnet_clinical_best_def.pth --output_dir .\experiments\predictions\eegnet\1
