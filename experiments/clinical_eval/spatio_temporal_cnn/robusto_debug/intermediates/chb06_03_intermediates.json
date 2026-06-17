@@ -1,0 +1,23 @@
+{
+  "record_id": "chb06_03",
+  "config": {
+    "window_step_s": 1.0,
+    "smoothing": "moving_average",
+    "smoothing_size": 3,
+    "threshold": 0.6,
+    "use_hysteresis": false,
+    "threshold_on": 0.6,
+    "threshold_off": 0.5,
+    "min_event_duration_s": 5.0,
+    "merge_gap_s": 5.0,
+    "max_event_duration_s": null,
+    "clip_probs": true,
+    "eps": 1e-08
+  },
+  "events_raw": [],
+  "events_filtered": [],
+  "events_merged": [],
+  "events_final": [],
+  "matches": [],
+  "ref_events": []
+}

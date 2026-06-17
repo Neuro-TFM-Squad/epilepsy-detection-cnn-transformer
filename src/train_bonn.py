@@ -1,135 +1,150 @@
 import os
+import random
+from dataclasses import dataclass
+
+import numpy as np
 import torch
 import torch.nn as nn
-import torch.optim as optim
-from tqdm import tqdm  # <-- Importamos tqdm
 from sklearn.model_selection import train_test_split
-from torch.utils.data import Subset, DataLoader
+from torch.utils.data import DataLoader, Subset
+from tqdm import tqdm
 
-from models.baseline_model import BaselineCNN
-from scripts.seizuredatasetnoise import SeizureDataset
+from models.bonn import BaselineCNN
+from datasets.bonn_dataset import BonnEEGDataset
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Iniciando entrenamiento en dispositivo: {device}")
 
-# ==========================================
-# 1. CONFIGURACIÓN DE DATOS
-# ==========================================
-csv_path = "data/BONN/processed/bonn_index.csv"
-root_data = "data/BONN/processed/"
+@dataclass
+class TrainConfig:
+    seed: int = 42
+    batch_size: int = 32
+    num_workers: int = 0
+    max_epochs: int = 80
+    patience: int = 12
+    lr: float = 1e-3
+    weight_decay: float = 1e-4
+    grad_clip_norm: float = 1.0
+    use_amp: bool = True
+    save_path: str = "models/baseline_cnn_bonn_clean.pth"
 
-dataset_aug = SeizureDataset(csv_file=csv_path, root_dir=root_data, augment=True)
-dataset_clean = SeizureDataset(csv_file=csv_path, root_dir=root_data, augment=False)
 
-labels = dataset_aug.annotations['label'].values
-indices = list(range(len(dataset_aug)))
+def set_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
-train_idx, val_idx = train_test_split(
-    indices, 
-    test_size=0.2, 
-    random_state=42, 
-    stratify=labels
-)
 
-train_dataset = Subset(dataset_aug, train_idx)
-val_dataset = Subset(dataset_clean, val_idx)
+def main():
+    cfg = TrainConfig()
+    set_seed(cfg.seed)
 
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Entrenando Bonn en {device}")
 
-# ==========================================
-# 2. MODELO Y OPTIMIZADOR
-# ==========================================
-<<<<<<< HEAD
-model = BaselineCNN().to(device)
-=======
-model = BaselineCNN(in_channels=1, num_classes=1).to(device)
->>>>>>> master
-criterion = nn.BCEWithLogitsLoss()
-optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    index_csv = "data/BONN/processed/bonn_index.csv"
+    root_dir = "data/BONN/processed"
 
-max_epochs = 150
-patience = 15
-patience_counter = 0
-best_val_loss = float('inf')
+    dataset_aug = BonnEEGDataset(index_csv=index_csv, root_dir=root_dir, augment=True)
+    dataset_clean = BonnEEGDataset(index_csv=index_csv, root_dir=root_dir, augment=False)
 
-os.makedirs("models", exist_ok=True)
-<<<<<<< HEAD
-best_model_path = "models/baseline_cnn_bonn_noise.pth"
-=======
-best_model_path = "models/baseline_cnn_bonn_noise_k15.pth"
->>>>>>> master
+    labels = dataset_aug.df["label"].values
+    indices = np.arange(len(dataset_aug))
 
-# ==========================================
-# 3. BUCLE DE ENTRENAMIENTO
-# ==========================================
-for epoch in range(max_epochs):
-    # --- FASE DE ENTRENAMIENTO ---
-    model.train()
-    running_train_loss = 0.0
+    train_idx, val_idx = train_test_split(
+        indices,
+        test_size=0.2,
+        random_state=cfg.seed,
+        stratify=labels
+    )
 
-    # Envolvemos el dataloader con tqdm
-    train_bar = tqdm(train_loader, desc=f"Epoch [{epoch+1}/{max_epochs}] Train", leave=False)
-    
-    for x, y in train_bar:
-        x = x.to(device)
-<<<<<<< HEAD
-        # Aseguramos que la etiqueta tenga la forma [B, 1] para BCEWithLogitsLoss
-        y = y.to(device).float()
-=======
-        y=y.unsqueeze(1).float().to(device)  # Aseguramos que y tenga forma [B, 1] para BCEWithLogitsLoss
+    train_dataset = Subset(dataset_aug, train_idx)
+    val_dataset = Subset(dataset_clean, val_idx)
 
->>>>>>> master
-        
-        optimizer.zero_grad()
-        logits = model(x)
-        
-        loss = criterion(logits, y)
-        loss.backward()
-        optimizer.step()
+    train_loader = DataLoader(
+        train_dataset,
+        batch_size=cfg.batch_size,
+        shuffle=True,
+        num_workers=cfg.num_workers,
+        pin_memory=(device.type == "cuda"),
+    )
 
-        running_train_loss += loss.item()
-        # Actualizamos la barra de progreso con el loss actual
-        train_bar.set_postfix(loss=loss.item())
+    val_loader = DataLoader(
+        val_dataset,
+        batch_size=cfg.batch_size,
+        shuffle=False,
+        num_workers=cfg.num_workers,
+        pin_memory=(device.type == "cuda"),
+    )
 
-    avg_train_loss = running_train_loss / len(train_loader)
+    sample_signal, _ = dataset_clean[0]
+    model = BaselineCNN(in_channels=sample_signal.shape[0], num_classes=1).to(device)
 
-    # --- FASE DE VALIDACIÓN ---
-    model.eval()
-    running_val_loss = 0.0
-    
-    val_bar = tqdm(val_loader, desc=f"Epoch [{epoch+1}/{max_epochs}] Val", leave=False)
-    
-    with torch.no_grad():
-        for x, y in val_bar:
-            x = x.to(device)
-<<<<<<< HEAD
-            y = y.to(device).float()
-=======
-            y=y.unsqueeze(1).float().to(device)
->>>>>>> master
-            
-            logits = model(x)
-            loss = criterion(logits, y)
-            running_val_loss += loss.item()
+    criterion = nn.BCEWithLogitsLoss()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=cfg.lr, weight_decay=cfg.weight_decay)
+    scaler = torch.amp.GradScaler("cuda", enabled=(cfg.use_amp and device.type == "cuda"))
 
-    avg_val_loss = running_val_loss / len(val_loader)
-    
-    # Imprimimos el resumen de la época
-    print(f"Epoch [{epoch+1}/{max_epochs}] | Train Loss: {avg_train_loss:.4f} | Val Loss: {avg_val_loss:.4f}")
+    best_val_loss = float("inf")
+    patience_counter = 0
+    os.makedirs(os.path.dirname(cfg.save_path), exist_ok=True)
 
-    # --- EARLY STOPPING LOGIC ---
-    if avg_val_loss < best_val_loss:
-        best_val_loss = avg_val_loss
-        patience_counter = 0
-        torch.save(model.state_dict(), best_model_path)
-        print("  -> ¡Mejor modelo guardado! (Val Loss reducida)")
-    else:
-        patience_counter += 1
-        print(f"  -> Sin mejora (Paciencia: {patience_counter}/{patience})")
-        if patience_counter >= patience:
-            print(f"\n[!] Early stopping activado en la época {epoch+1}. El modelo ha dejado de aprender.")
+    for epoch in range(cfg.max_epochs):
+        model.train()
+        train_losses = []
+
+        for x, y in tqdm(train_loader, desc=f"Epoch {epoch+1}/{cfg.max_epochs} [train]", leave=False):
+            x = x.to(device, non_blocking=True)
+            y = y.unsqueeze(1).float().to(device, non_blocking=True)
+
+            optimizer.zero_grad(set_to_none=True)
+
+            with torch.autocast(
+                device_type="cuda",
+                dtype=torch.float16,
+                enabled=(cfg.use_amp and device.type == "cuda")
+            ):
+                logits = model(x)
+                loss = criterion(logits, y)
+
+            if not torch.isfinite(loss):
+                continue
+
+            scaler.scale(loss).backward()
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), cfg.grad_clip_norm)
+            scaler.step(optimizer)
+            scaler.update()
+
+            train_losses.append(loss.item())
+
+        model.eval()
+        val_losses = []
+        with torch.no_grad():
+            for x, y in tqdm(val_loader, desc=f"Epoch {epoch+1}/{cfg.max_epochs} [val]", leave=False):
+                x = x.to(device, non_blocking=True)
+                y = y.unsqueeze(1).float().to(device, non_blocking=True)
+                logits = model(x)
+                loss = criterion(logits, y)
+                val_losses.append(loss.item())
+
+        mean_train = float(np.mean(train_losses)) if train_losses else np.nan
+        mean_val = float(np.mean(val_losses)) if val_losses else np.nan
+        print(f"Epoch {epoch+1:03d} | train_loss={mean_train:.4f} | val_loss={mean_val:.4f}")
+
+        if mean_val < best_val_loss:
+            best_val_loss = mean_val
+            patience_counter = 0
+            torch.save(model.state_dict(), cfg.save_path)
+            print(" -> mejor modelo guardado")
+        else:
+            patience_counter += 1
+            print(f" -> sin mejora ({patience_counter}/{cfg.patience})")
+
+        if patience_counter >= cfg.patience:
+            print("Early stopping")
             break
-            
-print("\n=== Entrenamiento Finalizado ===")
-print(f"El mejor modelo se encuentra en: {best_model_path}")
+
+    print(f"Checkpoint final: {cfg.save_path}")
+
+
+if __name__ == "__main__":
+    main()

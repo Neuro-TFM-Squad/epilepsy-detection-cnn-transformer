@@ -1,0 +1,7 @@
+{
+  "window_step_s": 1.0,
+  "pre_ictal_tolerance_s": 0.0,
+  "post_ictal_tolerance_s": 0.0,
+  "min_overlap_s": 0.0,
+  "eps": 1e-08
+}

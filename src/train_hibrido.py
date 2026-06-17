@@ -19,7 +19,8 @@ if ROOT_DIR not in sys.path:
 
 from src.models.hibrido import SpatioTemporalCNN
 from src.datasets.seizureDatasetMulticanal import SeizureDatasetMultichannel
-from src.utils.evaluador_clinico import ClinicalEvalConfig, ClinicalEvaluator
+from src.utils.evaluador_clinico_def import ClinicalEvalConfig, ClinicalEvaluator, clinical_score
+from src.utils.postprocessing import PostProcessConfig
 
 
 @dataclass
@@ -46,34 +47,51 @@ class TrainConfig:
     temporal_kernel: int = 15
     temporal_filters: int = 16
     spatial_filters: int = 32
+    dropout_p: float = 0.3
+    spatial_dropout_p: float = 0.1
+    temporal_norm: str = "instance"
     unfreeze_temporal_epoch: int = 10
 
     train_patients: tuple = (
-        'chb01', 'chb02', 'chb03', 'chb04',
-        'chb07', 'chb08', 'chb09', 'chb10'
+        "chb01", "chb02", "chb03", "chb04",
+        "chb07", "chb08", "chb09", "chb10"
     )
-    val_patients: tuple = ('chb05', 'chb06')
+    val_patients: tuple = ("chb05", "chb06")
     target_patients: tuple = (
-        'chb01', 'chb02', 'chb03', 'chb04',
-        'chb05', 'chb06',
-        'chb07', 'chb08', 'chb09', 'chb10'
+        "chb01", "chb02", "chb03", "chb04",
+        "chb05", "chb06",
+        "chb07", "chb08", "chb09", "chb10"
     )
-
-    lambda_fa: float = 0.30
-    min_sensitivity_gate: float = 0.20
 
     threshold_grid: tuple = (0.01, 0.02, 0.05, 0.10, 0.15, 0.20, 0.30)
-    moving_avg_grid: tuple = (1, 3, 5, 7)
+    smoothing_grid: tuple = (1, 3, 5, 7)
+
+    window_step_s: float = 1.0
+    smoothing: str = "moving_average"
+    use_hysteresis: bool = False
+    threshold_on: float = 0.60
+    threshold_off: float = 0.40
+    min_event_duration_s: float = 2.0
+    merge_gap_s: float = 30.0
+    max_event_duration_s: float | None = None
+
+    pre_ictal_tolerance_s: float = 0.0
+    post_ictal_tolerance_s: float = 0.0
+    min_overlap_s: float = 0.0
+
+    fa_penalty: float = 0.30
+    min_sensitivity_gate: float = 0.20
+    latency_penalty: float = 0.0
 
     calibr_epochs: int = 100
-    save_name: str = 'spatio_temporal_cnn_clinical_best_def.pth'
+    save_name: str = "spatio_temporal_cnn_clinical_best_def.pth"
 
 
 class SmoothedBCEWithLogitsLoss(nn.Module):
     def __init__(self, pos_weight=None, smoothing=0.0):
         super().__init__()
         if pos_weight is not None:
-            self.register_buffer('pos_weight', pos_weight)
+            self.register_buffer("pos_weight", pos_weight)
         else:
             self.pos_weight = None
         self.smoothing = smoothing
@@ -152,43 +170,91 @@ def compute_pos_weight(train_labels, cap_value):
     return torch.tensor([clipped], dtype=torch.float32)
 
 
+def normalize_patient_id_from_filepath(x):
+    return Path(str(x)).stem.split("_")[0]
+
+
+def normalize_record_id_from_filepath(x):
+    stem = Path(str(x)).stem
+    return stem.rsplit("_win", 1)[0] if "_win" in stem else stem
+
+
 def build_subset_dataframe(index_df, target_patients):
     df = index_df.copy()
-    df['patient_id'] = df['filepath'].apply(lambda x: x.split('_')[0])
-    dfs = [df[df['patient_id'] == p].copy() for p in target_patients]
-    subset_df = pd.concat(dfs, axis=0).reset_index(drop=True)
-    return subset_df
+
+    if "patient_id" not in df.columns:
+        if "filepath" not in df.columns:
+            raise ValueError("El índice debe contener 'patient_id' o 'filepath'.")
+        df["patient_id"] = df["filepath"].apply(normalize_patient_id_from_filepath)
+
+    df = df[df["patient_id"].isin(target_patients)].copy().reset_index(drop=True)
+
+    if "record_id" not in df.columns:
+        if "filepath" not in df.columns:
+            raise ValueError("El índice debe contener 'record_id' o 'filepath'.")
+        df["record_id"] = df["filepath"].apply(normalize_record_id_from_filepath)
+    else:
+        df["record_id"] = (
+            df["record_id"]
+            .astype(str)
+            .str.replace(".edf", "", regex=False)
+            .str.strip()
+        )
+
+    if "window_index" in df.columns:
+        df["window_index"] = pd.to_numeric(df["window_index"], errors="coerce")
+        df = df.dropna(subset=["window_index"]).copy()
+        df["window_index"] = df["window_index"].astype(int)
+
+    sort_cols = [c for c in ["patient_id", "record_id", "window_index"] if c in df.columns]
+    if sort_cols:
+        df = df.sort_values(sort_cols).reset_index(drop=True)
+
+    return df
 
 
 def maybe_set_temporal_norm_eval(model):
-    if hasattr(model, 'bn_temp') and isinstance(model.bn_temp, nn.BatchNorm1d):
+    if hasattr(model, "bn_temp") and isinstance(model.bn_temp, nn.BatchNorm1d):
         model.bn_temp.eval()
 
 
 def freeze_temporal_block(model, freeze=True):
     for name, p in model.named_parameters():
-        if name.startswith('temporal_') or name.startswith('bn_temp'):
+        if (
+            name.startswith("temporal_conv")
+            or name.startswith("temporal_shortcut")
+            or name.startswith("bn_temp")
+        ):
             p.requires_grad = not freeze
 
 
 def inject_bonn_knowledge(chb_model, bonn_model_path, device, num_channels=18, freeze_temporal=True):
-    bonn_state_dict = torch.load(bonn_model_path, map_location=device, weights_only=False)
-    if 'block1.0.weight' not in bonn_state_dict:
+    bonn_state = torch.load(bonn_model_path, map_location=device, weights_only=False)
+    state = bonn_state["model_state_dict"] if isinstance(bonn_state, dict) and "model_state_dict" in bonn_state else bonn_state
+
+    if "block1.0.weight" not in state:
         raise KeyError("No se encontró 'block1.0.weight' en el checkpoint de Bonn.")
 
-    bonn_conv_weights = bonn_state_dict['block1.0.weight']
+    bonn_conv_weights = state["block1.0.weight"]
     repeated_conv = bonn_conv_weights.repeat(num_channels, 1, 1)
 
     with torch.no_grad():
         chb_model.temporal_conv.weight.copy_(repeated_conv)
 
-        if 'block1.1.weight' in bonn_state_dict and hasattr(chb_model.bn_temp, 'weight') and chb_model.bn_temp.weight is not None:
-            chb_model.bn_temp.weight.copy_(bonn_state_dict['block1.1.weight'].repeat(num_channels))
-            chb_model.bn_temp.bias.copy_(bonn_state_dict['block1.1.bias'].repeat(num_channels))
+        if "block1.1.weight" in state and hasattr(chb_model, "bn_temp") and getattr(chb_model.bn_temp, "weight", None) is not None:
+            bn_w = state["block1.1.weight"].repeat(num_channels)
+            bn_b = state["block1.1.bias"].repeat(num_channels)
+            if chb_model.bn_temp.weight.shape == bn_w.shape:
+                chb_model.bn_temp.weight.copy_(bn_w)
+                chb_model.bn_temp.bias.copy_(bn_b)
 
         if isinstance(chb_model.bn_temp, nn.BatchNorm1d):
-            chb_model.bn_temp.running_mean.copy_(bonn_state_dict['block1.1.running_mean'].repeat(num_channels))
-            chb_model.bn_temp.running_var.copy_(bonn_state_dict['block1.1.running_var'].repeat(num_channels))
+            if "block1.1.running_mean" in state and "block1.1.running_var" in state:
+                rm = state["block1.1.running_mean"].repeat(num_channels)
+                rv = state["block1.1.running_var"].repeat(num_channels)
+                if chb_model.bn_temp.running_mean.shape == rm.shape:
+                    chb_model.bn_temp.running_mean.copy_(rm)
+                    chb_model.bn_temp.running_var.copy_(rv)
 
     if freeze_temporal:
         freeze_temporal_block(chb_model, freeze=True)
@@ -202,20 +268,24 @@ def make_optimizer(model, cfg, temporal_trainable=False):
     for name, p in model.named_parameters():
         if not p.requires_grad:
             continue
-        if name.startswith('fc'):
+        if name.startswith("fc"):
             head_params.append(p)
-        elif name.startswith('temporal_') or name.startswith('bn_temp'):
+        elif (
+            name.startswith("temporal_conv")
+            or name.startswith("temporal_shortcut")
+            or name.startswith("bn_temp")
+        ):
             temporal_params.append(p)
         else:
             backbone_params.append(p)
 
     param_groups = []
     if head_params:
-        param_groups.append({'params': head_params, 'lr': cfg.head_lr})
+        param_groups.append({"params": head_params, "lr": cfg.head_lr})
     if backbone_params:
-        param_groups.append({'params': backbone_params, 'lr': cfg.backbone_lr})
+        param_groups.append({"params": backbone_params, "lr": cfg.backbone_lr})
     if temporal_trainable and temporal_params:
-        param_groups.append({'params': temporal_params, 'lr': cfg.temporal_lr})
+        param_groups.append({"params": temporal_params, "lr": cfg.temporal_lr})
 
     return torch.optim.AdamW(param_groups, weight_decay=cfg.weight_decay)
 
@@ -224,15 +294,15 @@ def train_one_epoch(model, loader, criterion, optimizer, scaler, device, cfg, em
     model.train()
     maybe_set_temporal_norm_eval(model)
     losses, probs_all, labels_all = [], [], []
-    autocast_enabled = cfg.amp and device.type == 'cuda'
+    autocast_enabled = cfg.amp and device.type == "cuda"
 
-    for signals, labels in tqdm(loader, desc='Entrenando', leave=False):
+    for signals, labels in tqdm(loader, desc="Entrenando", leave=False):
         signals = signals.to(device, non_blocking=True)
         labels = labels.unsqueeze(1).float().to(device, non_blocking=True)
 
         optimizer.zero_grad(set_to_none=True)
 
-        with torch.autocast(device_type='cuda', dtype=torch.float16, enabled=autocast_enabled):
+        with torch.autocast(device_type="cuda", dtype=torch.float16, enabled=autocast_enabled):
             logits = model(signals)
             loss = criterion(logits, labels)
 
@@ -272,12 +342,12 @@ def train_one_epoch(model, loader, criterion, optimizer, scaler, device, cfg, em
     mean_prob_neg = float(probs[neg_mask].mean()) if np.any(neg_mask) else 0.0
 
     return {
-        'loss': float(np.mean(losses)) if losses else np.nan,
-        'pr_auc': pr_auc,
-        'roc_auc': roc_auc,
-        'pred_pos_rate': pred_pos_rate,
-        'mean_prob_pos': mean_prob_pos,
-        'mean_prob_neg': mean_prob_neg,
+        "loss": float(np.mean(losses)) if losses else np.nan,
+        "pr_auc": pr_auc,
+        "roc_auc": roc_auc,
+        "pred_pos_rate": pred_pos_rate,
+        "mean_prob_pos": mean_prob_pos,
+        "mean_prob_neg": mean_prob_neg,
     }
 
 
@@ -291,13 +361,13 @@ def collect_logits_and_labels(model, dataset, batch_size, num_workers, device, e
         batch_size=batch_size,
         shuffle=False,
         num_workers=num_workers,
-        pin_memory=(device.type == 'cuda'),
+        pin_memory=(device.type == "cuda"),
         persistent_workers=num_workers > 0,
     )
 
     logits_all, labels_all = [], []
 
-    for signals, labels in tqdm(loader, desc='Inferencia val', leave=False):
+    for signals, labels in tqdm(loader, desc="Inferencia val", leave=False):
         signals = signals.to(device, non_blocking=True)
         logits = model(signals)
         logits_all.append(logits.cpu().numpy().reshape(-1))
@@ -339,60 +409,105 @@ def apply_temperature(logits, temp_scaler):
     return probs
 
 
-def build_val_records(subset_df, val_idx, probs, clinical_cfg):
+def binary_to_events(binary_labels, window_step_s=1.0):
+    binary_labels = np.asarray(binary_labels, dtype=np.uint8)
+    events = []
+    in_event = False
+    start_idx = None
+
+    for i, v in enumerate(binary_labels):
+        if v == 1 and not in_event:
+            in_event = True
+            start_idx = i
+        elif v == 0 and in_event:
+            events.append((start_idx * window_step_s, i * window_step_s))
+            in_event = False
+            start_idx = None
+
+    if in_event:
+        events.append((start_idx * window_step_s, len(binary_labels) * window_step_s))
+
+    return events
+
+
+def build_val_records(subset_df, val_idx, probs, window_step_s=1.0):
     val_df = subset_df.loc[val_idx].copy().reset_index(drop=True)
-    val_df['record_id'] = val_df['filepath'].apply(lambda x: Path(x).stem.rsplit('_win', 1)[0])
-    val_df['prob'] = probs
+    val_df["prob"] = probs
 
     records = []
-    helper_eval = ClinicalEvaluator(clinical_cfg)
 
-    for record_id, group in val_df.groupby('record_id', sort=False):
-        labels = group['label'].astype(int).tolist()
-        ref_events = helper_eval._binary_to_events(np.asarray(labels, dtype=np.uint8))
+    for record_id, group in val_df.groupby("record_id", sort=False):
+        if "window_index" in group.columns:
+            group = group.sort_values("window_index")
+
+        labels = group["label"].astype(int).to_numpy()
+        ref_events = binary_to_events(labels, window_step_s=window_step_s)
+
         records.append({
-            'record_id': record_id,
-            'y_pred_prob': group['prob'].to_numpy(dtype=np.float32),
-            'ref_events': ref_events,
-            'record_duration_s': len(group) * clinical_cfg.window_step_s,
+            "record_id": record_id,
+            "y_pred_prob": group["prob"].to_numpy(dtype=np.float32),
+            "ref_events": ref_events,
+            "record_duration_s": len(group) * window_step_s,
         })
 
     return records
 
 
-def evaluate_clinical_grid(records, threshold_grid, moving_avg_grid, base_cfg, lambda_fa, min_sensitivity_gate):
+def evaluate_clinical_grid(records, cfg):
     best = None
 
-    for ma in moving_avg_grid:
-        for th in threshold_grid:
-            cfg = ClinicalEvalConfig(
-                window_step_s=base_cfg.window_step_s,
-                threshold=th,
-                moving_avg_size=ma,
-                min_event_duration_s=base_cfg.min_event_duration_s,
-                merge_gap_s=base_cfg.merge_gap_s,
-                pre_ictal_tolerance_s=base_cfg.pre_ictal_tolerance_s,
-                post_ictal_tolerance_s=base_cfg.post_ictal_tolerance_s,
-                max_event_duration_s=base_cfg.max_event_duration_s,
+    eval_cfg = ClinicalEvalConfig(
+        pre_ictal_tolerance_s=cfg.pre_ictal_tolerance_s,
+        post_ictal_tolerance_s=cfg.post_ictal_tolerance_s,
+        min_overlap_s=cfg.min_overlap_s,
+        eps=1e-8,
+    )
+
+    for smoothing_size in cfg.smoothing_grid:
+        for threshold in cfg.threshold_grid:
+            post_cfg = PostProcessConfig(
+                window_step_s=cfg.window_step_s,
+                smoothing=cfg.smoothing,
+                smoothing_size=smoothing_size,
+                threshold=threshold,
+                use_hysteresis=cfg.use_hysteresis,
+                threshold_on=cfg.threshold_on,
+                threshold_off=cfg.threshold_off,
+                min_event_duration_s=cfg.min_event_duration_s,
+                merge_gap_s=cfg.merge_gap_s,
+                max_event_duration_s=cfg.max_event_duration_s,
+                clip_probs=True,
+                eps=1e-8,
             )
-            evaluator = ClinicalEvaluator(cfg)
-            metrics = evaluator.evaluate_dataset(records)
 
-            sens = metrics['event_sensitivity']
-            fa_h = metrics['fa_per_hour']
-            score = sens - lambda_fa * fa_h
+            evaluator = ClinicalEvaluator(
+                eval_config=eval_cfg,
+                postprocess_config=post_cfg,
+            )
 
-            if sens < min_sensitivity_gate:
-                score -= 1.0
+            metrics = evaluator.evaluate_dataset(
+                records,
+                use_probabilities=True,
+                return_intermediates=False,
+            )
+
+            score = clinical_score(
+                metrics,
+                fa_penalty=cfg.fa_penalty,
+                min_sensitivity=cfg.min_sensitivity_gate,
+                latency_penalty=cfg.latency_penalty,
+            )
 
             candidate = {
-                'score': score,
-                'threshold': th,
-                'moving_avg_size': ma,
+                "score": score,
+                "threshold": threshold,
+                "smoothing_size": smoothing_size,
                 **metrics,
+                "eval_config": eval_cfg.to_dict(),
+                "postprocess_config": post_cfg.to_dict(),
             }
 
-            if best is None or candidate['score'] > best['score']:
+            if best is None or candidate["score"] > best["score"]:
                 best = candidate
 
     return best
@@ -401,14 +516,14 @@ def evaluate_clinical_grid(records, threshold_grid, moving_avg_grid, base_cfg, l
 def save_checkpoint(path, model, optimizer, epoch, best_metrics, cfg, temperature=None):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     payload = {
-        'epoch': epoch,
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'best_metrics': best_metrics,
-        'config': cfg.__dict__,
+        "epoch": epoch,
+        "model_state_dict": model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+        "best_metrics": best_metrics,
+        "config": cfg.__dict__,
     }
     if temperature is not None:
-        payload['temperature'] = temperature
+        payload["temperature"] = temperature
     torch.save(payload, path)
 
 
@@ -416,28 +531,28 @@ def main():
     cfg = TrainConfig()
     set_seed(cfg.seed)
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    if device.type == 'cuda':
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if device.type == "cuda":
         torch.backends.cudnn.benchmark = True
-    print(f'🚀 Entrenando híbrido en {device}')
+    print(f"🚀 Entrenando híbrido en {device}")
 
-    csv_path = os.path.join(ROOT_DIR, 'data', 'CHBMIT', 'processed', 'ventana1s', 'chbmit_index.csv')
-    signals_bin = os.path.join(ROOT_DIR, 'data', 'CHBMIT', 'processed', 'ventana1s', 'chbmit_signals.bin')
-    labels_bin = os.path.join(ROOT_DIR, 'data', 'CHBMIT', 'processed', 'ventana1s', 'chbmit_labels.bin')
-    ruta_pesos_bonn = os.path.join(ROOT_DIR, 'models', 'baseline_cnn_bonn_noise_k15.pth')
-    save_path = os.path.join(ROOT_DIR, 'models', cfg.save_name)
+    csv_path = os.path.join(ROOT_DIR, "data", "CHBMIT", "processed", "ventana1s", "chbmit_index.csv")
+    signals_bin = os.path.join(ROOT_DIR, "data", "CHBMIT", "processed", "ventana1s", "chbmit_signals.bin")
+    labels_bin = os.path.join(ROOT_DIR, "data", "CHBMIT", "processed", "ventana1s", "chbmit_labels.bin")
+    ruta_pesos_bonn = os.path.join(ROOT_DIR, "models", "baseline_cnn_bonn_clean.pth")
+    save_path = os.path.join(ROOT_DIR, "models", cfg.save_name)
 
     index_df = pd.read_csv(csv_path)
     total_samples = len(index_df)
     subset_df = build_subset_dataframe(index_df, cfg.target_patients)
 
-    train_idx = subset_df[subset_df['patient_id'].isin(cfg.train_patients)].index.to_numpy()
-    val_idx = subset_df[subset_df['patient_id'].isin(cfg.val_patients)].index.to_numpy()
+    train_idx = subset_df[subset_df["patient_id"].isin(cfg.train_patients)].index.to_numpy()
+    val_idx = subset_df[subset_df["patient_id"].isin(cfg.val_patients)].index.to_numpy()
 
     print(f"🏥 Train patients: {cfg.train_patients} | windows={len(train_idx)}")
     print(f"🏥 Val patients: {cfg.val_patients} | windows={len(val_idx)}")
 
-    train_labels = subset_df.loc[train_idx, 'label'].values
+    train_labels = subset_df.loc[train_idx, "label"].values
     pos_weight = compute_pos_weight(train_labels, cfg.pos_weight_cap).to(device)
 
     train_dataset = SeizureDatasetMultichannel(
@@ -463,7 +578,7 @@ def main():
         batch_size=cfg.batch_size,
         shuffle=True,
         num_workers=cfg.num_workers,
-        pin_memory=(device.type == 'cuda'),
+        pin_memory=(device.type == "cuda"),
         persistent_workers=cfg.num_workers > 0,
         drop_last=False,
     )
@@ -473,6 +588,11 @@ def main():
         window_size=256,
         temporal_filters=cfg.temporal_filters,
         spatial_filters=cfg.spatial_filters,
+        num_classes=1,
+        temporal_kernel=cfg.temporal_kernel,
+        dropout_p=cfg.dropout_p,
+        spatial_dropout_p=cfg.spatial_dropout_p,
+        temporal_norm=cfg.temporal_norm,
     ).to(device)
 
     model = inject_bonn_knowledge(
@@ -491,40 +611,29 @@ def main():
     optimizer = make_optimizer(model, cfg, temporal_trainable=False)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         optimizer,
-        mode='max',
+        mode="max",
         factor=0.5,
         patience=2,
     )
-    scaler = torch.amp.GradScaler('cuda', enabled=(cfg.amp and device.type == 'cuda'))
+    scaler = torch.amp.GradScaler("cuda", enabled=(cfg.amp and device.type == "cuda"))
     ema = EMA(decay=0.995)
-
-    base_clinical_cfg = ClinicalEvalConfig(
-        window_step_s=1.0,
-        threshold=0.5,
-        moving_avg_size=5,
-        min_event_duration_s=2.0,
-        merge_gap_s=30.0,
-        pre_ictal_tolerance_s=0.0,
-        post_ictal_tolerance_s=0.0,
-        max_event_duration_s=None,
-    )
 
     best_score = -np.inf
     patience_counter = 0
 
     for epoch in range(cfg.max_epochs):
-        print(f'\n--- Época {epoch + 1}/{cfg.max_epochs} ---')
+        print(f"\n--- Época {epoch + 1}/{cfg.max_epochs} ---")
 
         if epoch == cfg.unfreeze_temporal_epoch:
             freeze_temporal_block(model, freeze=False)
             optimizer = make_optimizer(model, cfg, temporal_trainable=True)
             scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
                 optimizer,
-                mode='max',
+                mode="max",
                 factor=0.5,
                 patience=2,
             )
-            print('🔓 Descongelado fino del bloque temporal.')
+            print("🔓 Descongelado fino del bloque temporal.")
 
         train_metrics = train_one_epoch(
             model,
@@ -566,22 +675,18 @@ def main():
         cal_mean_neg = float(val_probs[val_neg_mask].mean()) if np.any(val_neg_mask) else 0.0
 
         val_records = build_val_records(
-            subset_df,
-            val_idx,
-            val_probs,
-            base_clinical_cfg,
+            subset_df=subset_df,
+            val_idx=val_idx,
+            probs=val_probs,
+            window_step_s=cfg.window_step_s,
         )
 
         clinical_metrics = evaluate_clinical_grid(
             records=val_records,
-            threshold_grid=cfg.threshold_grid,
-            moving_avg_grid=cfg.moving_avg_grid,
-            base_cfg=base_clinical_cfg,
-            lambda_fa=cfg.lambda_fa,
-            min_sensitivity_gate=cfg.min_sensitivity_gate,
+            cfg=cfg,
         )
 
-        scheduler.step(clinical_metrics['score'])
+        scheduler.step(clinical_metrics["score"])
 
         print(
             f"Train | loss={train_metrics['loss']:.4f} | "
@@ -607,12 +712,12 @@ def main():
             f"fa/h={clinical_metrics['fa_per_hour']:.4f} | "
             f"f1={clinical_metrics['event_f1']:.4f} | "
             f"th={clinical_metrics['threshold']:.2f} | "
-            f"ma={clinical_metrics['moving_avg_size']} | "
+            f"smooth={clinical_metrics['smoothing_size']} | "
             f"score={clinical_metrics['score']:.4f}"
         )
 
-        if clinical_metrics['score'] > best_score:
-            best_score = clinical_metrics['score']
+        if clinical_metrics["score"] > best_score:
+            best_score = clinical_metrics["score"]
             patience_counter = 0
             save_checkpoint(
                 save_path,
@@ -623,17 +728,17 @@ def main():
                 cfg,
                 temperature=temp_scaler.temperature,
             )
-            print('⭐ Nuevo mejor modelo guardado')
+            print("⭐ Nuevo mejor modelo guardado")
         else:
             patience_counter += 1
-            print(f'⏳ Sin mejora ({patience_counter}/{cfg.patience})')
+            print(f"⏳ Sin mejora ({patience_counter}/{cfg.patience})")
 
         if patience_counter >= cfg.patience:
-            print('⛔ Early stopping')
+            print("⛔ Early stopping")
             break
 
-    print('✅ Fin entrenamiento')
+    print("✅ Fin entrenamiento")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

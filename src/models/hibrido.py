@@ -17,7 +17,7 @@ class SpatioTemporalCNN(nn.Module):
         temporal_norm='instance',
     ):
         super().__init__()
-        assert temporal_kernel % 2 == 1, 'temporal_kernel debe ser impar para mantener longitud temporal.'
+        assert temporal_kernel % 2 == 1, 'temporal_kernel debe ser impar.'
 
         self.in_channels = in_channels
         self.window_size = window_size
