@@ -26,18 +26,18 @@ class TrainConfig:
 
     batch_size: int = 256
     num_workers: int = 0
-    max_epochs: int = 60
-    patience: int = 10
+    max_epochs: int = 100
+    patience: int = 20
 
     lr: float = 1e-3
-    weight_decay: float = 1e-4
+    weight_decay: float = 1e-3
     grad_clip_norm: float = 1.0
     amp: bool = True
 
     pos_weight_cap: float = 4.0
 
     hidden_dims: tuple = (256, 128)
-    dropout: float = 0.25
+    dropout: float = 0.45
 
     train_patients: tuple = (
         "chb01", "chb02", "chb03", "chb04",
@@ -46,7 +46,7 @@ class TrainConfig:
     val_patients: tuple = ("chb05", "chb06")
 
     data_dir: str = r"E:\TFM\data\CHBMIT\processed\dataset_chbmit_dwt_18ch_bin"
-    save_name: str = "dwt_mlp_best_pr_auc.pth"
+    save_name: str = "dwt_mlp_v2.pth"
 
     selection_metric: str = "pr_auc"
 

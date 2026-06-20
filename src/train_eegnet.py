@@ -27,8 +27,8 @@ class TrainConfig:
     seed: int = 42
     batch_size: int = 264
     num_workers: int = 2
-    max_epochs: int = 60
-    patience: int = 10
+    max_epochs: int = 100
+    patience: int = 15
 
     lr: float = 3e-4
     weight_decay: float = 1e-4
@@ -43,13 +43,21 @@ class TrainConfig:
 
     train_patients: tuple = (
         'chb01', 'chb02', 'chb03', 'chb04',
-        'chb07', 'chb08', 'chb09', 'chb10'
+        'chb07', 'chb08', 'chb09', 'chb10',
+        'chb11', 'chb12', 'chb13', 'chb14',
+        'chb15', 'chb16', 'chb17', 'chb18',
+        'chb19', 'chb20', 'chb21', 'chb22',
+        'chb23', 'chb24',
     )
     val_patients: tuple = ('chb05', 'chb06')
     target_patients: tuple = (
         'chb01', 'chb02', 'chb03', 'chb04',
         'chb05', 'chb06',
-        'chb07', 'chb08', 'chb09', 'chb10'
+        'chb07', 'chb08', 'chb09', 'chb10',
+        'chb11', 'chb12', 'chb13', 'chb14',
+        'chb15', 'chb16', 'chb17', 'chb18',
+        'chb19', 'chb20', 'chb21', 'chb22',
+        'chb23', 'chb24',
     )
 
     lambda_fa: float = 0.30
@@ -61,7 +69,7 @@ class TrainConfig:
     calibr_lr: float = 1e-2
     calibr_epochs: int = 100
 
-    save_name: str = 'eegnet_clinical_best_def.pth'
+    save_name: str = 'eegnet_pr_auc_best.pth'
 
 
 class SmoothedBCEWithLogitsLoss(nn.Module):
@@ -437,7 +445,7 @@ def main():
         max_event_duration_s=None,
     )
 
-    best_score = -np.inf
+    best_pr_auc = -np.inf
     patience_counter = 0
 
     for epoch in range(cfg.max_epochs):
@@ -464,6 +472,9 @@ def main():
         )
 
         raw_val_probs = safe_sigmoid(val_logits)
+
+        val_pr_auc = average_precision_score(val_labels, raw_val_probs) if np.any(val_labels == 1) else 0.0
+        val_roc_auc = roc_auc_score(val_labels, raw_val_probs) if len(np.unique(val_labels)) > 1 else 0.0
 
         temp_scaler = fit_temperature_scaler(
             val_logits,
@@ -498,7 +509,7 @@ def main():
             min_sensitivity_gate=cfg.min_sensitivity_gate,
         )
 
-        scheduler.step(clinical_metrics['score'])
+        scheduler.step(val_pr_auc)
 
         print(
             f"Train | loss={train_metrics['loss']:.4f} | "
@@ -511,8 +522,8 @@ def main():
             f"mean_prob_neg={train_metrics['mean_prob_neg']:.4f}"
         )
         print(
-            f"ValDiagRaw | mean_prob_pos={raw_mean_pos:.4f} | "
-            f"mean_prob_neg={raw_mean_neg:.4f}"
+            f"ValDiagRaw | pr_auc={val_pr_auc:.4f} | roc_auc={val_roc_auc:.4f} | "
+            f"mean_prob_pos={raw_mean_pos:.4f} | mean_prob_neg={raw_mean_neg:.4f}"
         )
         print(
             f"ValDiagCal | mean_prob_pos={cal_mean_pos:.4f} | "
@@ -528,8 +539,8 @@ def main():
             f"score={clinical_metrics['score']:.4f}"
         )
 
-        if clinical_metrics['score'] > best_score:
-            best_score = clinical_metrics['score']
+        if val_pr_auc > best_pr_auc:
+            best_pr_auc = val_pr_auc
             patience_counter = 0
             save_checkpoint(
                 save_path,
@@ -540,7 +551,7 @@ def main():
                 cfg,
                 temperature=temp_scaler.temperature,
             )
-            print('⭐ Nuevo mejor modelo guardado')
+            print(f'⭐ Nuevo mejor modelo guardado (val_pr_auc={val_pr_auc:.4f})')
         else:
             patience_counter += 1
             print(f'⏳ Sin mejora ({patience_counter}/{cfg.patience})')

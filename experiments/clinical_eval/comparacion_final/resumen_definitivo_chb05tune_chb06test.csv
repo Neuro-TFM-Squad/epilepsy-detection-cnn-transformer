@@ -1,0 +1,5 @@
+Modelo,PP_umbral,PP_suavizado,PP_minDur_s,PP_mergeGap_s,Tune_Sens,Tune_F1,Tune_FAh,Tune_TP,Tune_FP,Tune_FN,Test_Sens,Test_F1,Test_FAh,Test_TP,Test_FP,Test_FN,Test_LatMed_s
+EEGNet,0.2,1,5.0,0.0,0.0,0.0,0.0,0,0,5,0.0,0.0,0.0,0,0,10,
+AttentionCNN,0.5,5,5.0,5.0,0.0,0.0,0.154,0,6,5,0.0,0.0,0.135,0,9,10,
+Híbrido,0.3,1,1.0,5.0,0.3999999992,0.007,14.409,2,562,3,0.0,0.0,5.125,0,342,10,
+DWT-MLP,0.3,3,5.0,0.0,0.3999999992,0.0556,1.667,2,65,3,0.0,0.0,0.0,0,0,10,

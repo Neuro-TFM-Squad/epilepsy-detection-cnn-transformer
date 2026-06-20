@@ -1,0 +1,6 @@
+record_id,event_type,ref_idx,matched_pred_indices,n_matched_pred_fragments,pred_start_s,pred_end_s,pred_duration_s,ref_start_s,ref_end_s,ref_duration_s,total_overlap_s,latency_to_onset_s
+chb05_06,FN,0,[],0,,,,417.0,532.0,115.0,0.0,
+chb05_13,FN,0,[],0,,,,1086.0,1196.0,110.0,0.0,
+chb05_16,FN,0,[],0,,,,2317.0,2413.0,96.0,0.0,
+chb05_17,FN,0,[],0,,,,2451.0,2571.0,120.0,0.0,
+chb05_22,FN,0,[],0,,,,2348.0,2465.0,117.0,0.0,

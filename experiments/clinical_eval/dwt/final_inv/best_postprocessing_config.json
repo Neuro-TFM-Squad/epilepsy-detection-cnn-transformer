@@ -1,0 +1,14 @@
+{
+  "window_step_s": 1.0,
+  "smoothing": "moving_average",
+  "smoothing_size": 1,
+  "threshold": 0.4,
+  "use_hysteresis": false,
+  "threshold_on": 0.4,
+  "threshold_off": 0.30000000000000004,
+  "min_event_duration_s": 1.0,
+  "merge_gap_s": 5.0,
+  "max_event_duration_s": null,
+  "clip_probs": true,
+  "eps": 1e-08
+}
