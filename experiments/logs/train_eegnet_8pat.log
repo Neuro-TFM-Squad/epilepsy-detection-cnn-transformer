@@ -1,0 +1,222 @@
+2026-07-02 14:26:13,526 Log guardado en: E:\TFM\experiments\logs\train_eegnet_8pat.log
+2026-07-02 14:26:13,560 Entrenando EEGNet-8pat en cuda
+2026-07-02 14:26:13,560 Train patients (8): ('chb01', 'chb02', 'chb03', 'chb04', 'chb07', 'chb08', 'chb09', 'chb10')
+2026-07-02 14:26:13,560 Val patients: ('chb05', 'chb06')
+2026-07-02 14:26:13,560 Checkpoint destino: models/eegnet_8pat_best.pth
+2026-07-02 14:26:18,479 Ventanas entrenamiento: 1709420
+2026-07-02 14:26:18,479 Ventanas validacion: 380656
+2026-07-02 14:26:18,545 Clase positiva: 3361 ventanas | Clase negativa: 1706059 ventanas | Ratio: 507.6:1
+2026-07-02 14:26:18,549 pos_weight raw=507.60 | capped=4.00
+2026-07-02 14:26:20,336 --- Epoca 1/100 ---
+2026-07-02 14:36:55,256 Train | loss=0.0614 | pr_auc=0.0025 | roc_auc=0.6086 | pred_pos=0.0014 | mean_pos=0.0281 | mean_neg=0.0240
+2026-07-02 14:36:55,258 Val   | pr_auc=0.0016 | roc_auc=0.4235 | cal_mean_pos=0.0108 | cal_mean_neg=0.0120 | T=1.0828
+2026-07-02 14:36:55,258 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.40 | ma=3 | score=-1.0000
+2026-07-02 14:36:55,313 NUEVO MEJOR guardado (val_pr_auc=0.0016) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 14:36:55,313 --- Epoca 2/100 ---
+2026-07-02 14:47:58,307 Train | loss=0.0436 | pr_auc=0.0051 | roc_auc=0.7238 | pred_pos=0.0000 | mean_pos=0.0158 | mean_neg=0.0080
+2026-07-02 14:47:58,309 Val   | pr_auc=0.0021 | roc_auc=0.5027 | cal_mean_pos=0.0146 | cal_mean_neg=0.0141 | T=1.0398
+2026-07-02 14:47:58,309 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.40 | ma=3 | score=-1.0000
+2026-07-02 14:47:58,329 NUEVO MEJOR guardado (val_pr_auc=0.0021) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 14:47:58,329 --- Epoca 3/100 ---
+2026-07-02 14:59:19,682 Train | loss=0.0418 | pr_auc=0.0077 | roc_auc=0.7815 | pred_pos=0.0000 | mean_pos=0.0204 | mean_neg=0.0078
+2026-07-02 14:59:19,684 Val   | pr_auc=0.0025 | roc_auc=0.5556 | cal_mean_pos=0.0169 | cal_mean_neg=0.0145 | T=1.0278
+2026-07-02 14:59:19,684 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.40 | ma=3 | score=-1.0000
+2026-07-02 14:59:19,706 NUEVO MEJOR guardado (val_pr_auc=0.0025) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 14:59:19,708 --- Epoca 4/100 ---
+2026-07-02 15:10:01,397 Train | loss=0.0405 | pr_auc=0.0102 | roc_auc=0.8115 | pred_pos=0.0000 | mean_pos=0.0251 | mean_neg=0.0077
+2026-07-02 15:10:01,399 Val   | pr_auc=0.0034 | roc_auc=0.6149 | cal_mean_pos=0.0201 | cal_mean_neg=0.0143 | T=1.0270
+2026-07-02 15:10:01,399 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 15:10:01,411 NUEVO MEJOR guardado (val_pr_auc=0.0034) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 15:10:01,411 --- Epoca 5/100 ---
+2026-07-02 15:20:46,677 Train | loss=0.0396 | pr_auc=0.0124 | roc_auc=0.8296 | pred_pos=0.0000 | mean_pos=0.0290 | mean_neg=0.0077
+2026-07-02 15:20:46,679 Val   | pr_auc=0.0037 | roc_auc=0.6420 | cal_mean_pos=0.0205 | cal_mean_neg=0.0134 | T=1.0403
+2026-07-02 15:20:46,679 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 15:20:46,698 NUEVO MEJOR guardado (val_pr_auc=0.0037) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 15:20:46,698 --- Epoca 6/100 ---
+2026-07-02 15:30:52,198 Train | loss=0.0389 | pr_auc=0.0144 | roc_auc=0.8427 | pred_pos=0.0000 | mean_pos=0.0329 | mean_neg=0.0076
+2026-07-02 15:30:52,200 Val   | pr_auc=0.0037 | roc_auc=0.6594 | cal_mean_pos=0.0226 | cal_mean_neg=0.0140 | T=1.0269
+2026-07-02 15:30:52,200 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 15:30:52,200 Sin mejora (1/15)
+2026-07-02 15:30:52,200 --- Epoca 7/100 ---
+2026-07-02 15:40:59,472 Train | loss=0.0382 | pr_auc=0.0172 | roc_auc=0.8523 | pred_pos=0.0000 | mean_pos=0.0374 | mean_neg=0.0076
+2026-07-02 15:40:59,472 Val   | pr_auc=0.0034 | roc_auc=0.6512 | cal_mean_pos=0.0228 | cal_mean_neg=0.0146 | T=1.0167
+2026-07-02 15:40:59,472 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 15:40:59,472 Sin mejora (2/15)
+2026-07-02 15:40:59,472 --- Epoca 8/100 ---
+2026-07-02 15:51:03,335 Train | loss=0.0378 | pr_auc=0.0194 | roc_auc=0.8568 | pred_pos=0.0000 | mean_pos=0.0414 | mean_neg=0.0075
+2026-07-02 15:51:03,335 Val   | pr_auc=0.0036 | roc_auc=0.6683 | cal_mean_pos=0.0247 | cal_mean_neg=0.0149 | T=1.0091
+2026-07-02 15:51:03,335 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 15:51:03,335 Sin mejora (3/15)
+2026-07-02 15:51:03,335 --- Epoca 9/100 ---
+2026-07-02 16:00:52,085 Train | loss=0.0371 | pr_auc=0.0223 | roc_auc=0.8685 | pred_pos=0.0000 | mean_pos=0.0444 | mean_neg=0.0075
+2026-07-02 16:00:52,085 Val   | pr_auc=0.0039 | roc_auc=0.6757 | cal_mean_pos=0.0241 | cal_mean_neg=0.0135 | T=1.0325
+2026-07-02 16:00:52,085 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 16:00:52,111 NUEVO MEJOR guardado (val_pr_auc=0.0039) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 16:00:52,111 --- Epoca 10/100 ---
+2026-07-02 16:10:36,870 Train | loss=0.0368 | pr_auc=0.0231 | roc_auc=0.8716 | pred_pos=0.0000 | mean_pos=0.0462 | mean_neg=0.0073
+2026-07-02 16:10:36,874 Val   | pr_auc=0.0041 | roc_auc=0.6802 | cal_mean_pos=0.0261 | cal_mean_neg=0.0142 | T=1.0189
+2026-07-02 16:10:36,874 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 16:10:36,900 NUEVO MEJOR guardado (val_pr_auc=0.0041) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 16:10:36,900 --- Epoca 11/100 ---
+2026-07-02 16:20:15,033 Train | loss=0.0365 | pr_auc=0.0251 | roc_auc=0.8762 | pred_pos=0.0000 | mean_pos=0.0488 | mean_neg=0.0072
+2026-07-02 16:20:15,033 Val   | pr_auc=0.0038 | roc_auc=0.6726 | cal_mean_pos=0.0246 | cal_mean_neg=0.0138 | T=1.0276
+2026-07-02 16:20:15,033 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 16:20:15,033 Sin mejora (1/15)
+2026-07-02 16:20:15,033 --- Epoca 12/100 ---
+2026-07-02 16:29:44,775 Train | loss=0.0364 | pr_auc=0.0257 | roc_auc=0.8759 | pred_pos=0.0000 | mean_pos=0.0508 | mean_neg=0.0073
+2026-07-02 16:29:44,779 Val   | pr_auc=0.0042 | roc_auc=0.6823 | cal_mean_pos=0.0248 | cal_mean_neg=0.0130 | T=1.0401
+2026-07-02 16:29:44,779 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 16:29:44,804 NUEVO MEJOR guardado (val_pr_auc=0.0042) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 16:29:44,804 --- Epoca 13/100 ---
+2026-07-02 16:39:24,652 Train | loss=0.0365 | pr_auc=0.0254 | roc_auc=0.8740 | pred_pos=0.0000 | mean_pos=0.0512 | mean_neg=0.0073
+2026-07-02 16:39:24,656 Val   | pr_auc=0.0045 | roc_auc=0.6947 | cal_mean_pos=0.0276 | cal_mean_neg=0.0138 | T=1.0250
+2026-07-02 16:39:24,656 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 16:39:24,674 NUEVO MEJOR guardado (val_pr_auc=0.0045) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 16:39:24,674 --- Epoca 14/100 ---
+2026-07-02 16:49:25,999 Train | loss=0.0363 | pr_auc=0.0264 | roc_auc=0.8776 | pred_pos=0.0000 | mean_pos=0.0526 | mean_neg=0.0072
+2026-07-02 16:49:26,003 Val   | pr_auc=0.0042 | roc_auc=0.6828 | cal_mean_pos=0.0263 | cal_mean_neg=0.0136 | T=1.0282
+2026-07-02 16:49:26,003 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 16:49:26,003 Sin mejora (1/15)
+2026-07-02 16:49:26,003 --- Epoca 15/100 ---
+2026-07-02 16:59:28,995 Train | loss=0.0359 | pr_auc=0.0285 | roc_auc=0.8832 | pred_pos=0.0000 | mean_pos=0.0550 | mean_neg=0.0071
+2026-07-02 16:59:28,997 Val   | pr_auc=0.0047 | roc_auc=0.6956 | cal_mean_pos=0.0302 | cal_mean_neg=0.0146 | T=1.0095
+2026-07-02 16:59:28,997 Clin  | sens=0.1333 | fa/h=0.3310 | f1=0.0769 | th=0.10 | ma=5 | score=-0.9660
+2026-07-02 16:59:29,031 NUEVO MEJOR guardado (val_pr_auc=0.0047) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 16:59:29,031 --- Epoca 16/100 ---
+2026-07-02 17:09:24,235 Train | loss=0.0361 | pr_auc=0.0297 | roc_auc=0.8809 | pred_pos=0.0000 | mean_pos=0.0569 | mean_neg=0.0072
+2026-07-02 17:09:24,235 Val   | pr_auc=0.0045 | roc_auc=0.6957 | cal_mean_pos=0.0283 | cal_mean_neg=0.0137 | T=1.0259
+2026-07-02 17:09:24,237 Clin  | sens=0.2667 | fa/h=0.9647 | f1=0.0661 | th=0.10 | ma=3 | score=-0.0227
+2026-07-02 17:09:24,239 Sin mejora (1/15)
+2026-07-02 17:09:24,239 --- Epoca 17/100 ---
+2026-07-02 17:19:04,853 Train | loss=0.0362 | pr_auc=0.0279 | roc_auc=0.8777 | pred_pos=0.0000 | mean_pos=0.0561 | mean_neg=0.0072
+2026-07-02 17:19:04,857 Val   | pr_auc=0.0047 | roc_auc=0.7037 | cal_mean_pos=0.0303 | cal_mean_neg=0.0143 | T=1.0146
+2026-07-02 17:19:04,857 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 17:19:04,925 NUEVO MEJOR guardado (val_pr_auc=0.0047) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 17:19:04,925 --- Epoca 18/100 ---
+2026-07-02 17:29:03,762 Train | loss=0.0358 | pr_auc=0.0305 | roc_auc=0.8833 | pred_pos=0.0000 | mean_pos=0.0582 | mean_neg=0.0072
+2026-07-02 17:29:03,762 Val   | pr_auc=0.0048 | roc_auc=0.7006 | cal_mean_pos=0.0300 | cal_mean_neg=0.0140 | T=1.0181
+2026-07-02 17:29:03,762 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 17:29:03,776 NUEVO MEJOR guardado (val_pr_auc=0.0048) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 17:29:03,776 --- Epoca 19/100 ---
+2026-07-02 17:38:59,272 Train | loss=0.0357 | pr_auc=0.0301 | roc_auc=0.8843 | pred_pos=0.0000 | mean_pos=0.0586 | mean_neg=0.0072
+2026-07-02 17:38:59,274 Val   | pr_auc=0.0051 | roc_auc=0.7068 | cal_mean_pos=0.0307 | cal_mean_neg=0.0136 | T=1.0246
+2026-07-02 17:38:59,274 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 17:38:59,291 NUEVO MEJOR guardado (val_pr_auc=0.0051) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 17:38:59,291 --- Epoca 20/100 ---
+2026-07-02 17:48:45,212 Train | loss=0.0354 | pr_auc=0.0329 | roc_auc=0.8873 | pred_pos=0.0000 | mean_pos=0.0617 | mean_neg=0.0071
+2026-07-02 17:48:45,216 Val   | pr_auc=0.0046 | roc_auc=0.6930 | cal_mean_pos=0.0297 | cal_mean_neg=0.0141 | T=1.0176
+2026-07-02 17:48:45,216 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 17:48:45,216 Sin mejora (1/15)
+2026-07-02 17:48:45,216 --- Epoca 21/100 ---
+2026-07-02 17:58:36,589 Train | loss=0.0355 | pr_auc=0.0308 | roc_auc=0.8882 | pred_pos=0.0000 | mean_pos=0.0604 | mean_neg=0.0071
+2026-07-02 17:58:36,595 Val   | pr_auc=0.0052 | roc_auc=0.7052 | cal_mean_pos=0.0314 | cal_mean_neg=0.0139 | T=1.0202
+2026-07-02 17:58:36,595 Clin  | sens=0.2667 | fa/h=1.0781 | f1=0.0602 | th=0.10 | ma=3 | score=-0.0568
+2026-07-02 17:58:36,625 NUEVO MEJOR guardado (val_pr_auc=0.0052) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 17:58:36,625 --- Epoca 22/100 ---
+2026-07-02 18:07:59,873 Train | loss=0.0355 | pr_auc=0.0332 | roc_auc=0.8852 | pred_pos=0.0000 | mean_pos=0.0630 | mean_neg=0.0071
+2026-07-02 18:07:59,875 Val   | pr_auc=0.0048 | roc_auc=0.6957 | cal_mean_pos=0.0292 | cal_mean_neg=0.0134 | T=1.0309
+2026-07-02 18:07:59,875 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 18:07:59,875 Sin mejora (1/15)
+2026-07-02 18:07:59,875 --- Epoca 23/100 ---
+2026-07-02 18:17:25,899 Train | loss=0.0352 | pr_auc=0.0348 | roc_auc=0.8878 | pred_pos=0.0000 | mean_pos=0.0646 | mean_neg=0.0071
+2026-07-02 18:17:25,903 Val   | pr_auc=0.0051 | roc_auc=0.7020 | cal_mean_pos=0.0303 | cal_mean_neg=0.0134 | T=1.0296
+2026-07-02 18:17:25,903 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 18:17:25,903 Sin mejora (2/15)
+2026-07-02 18:17:25,903 --- Epoca 24/100 ---
+2026-07-02 18:27:21,745 Train | loss=0.0354 | pr_auc=0.0332 | roc_auc=0.8870 | pred_pos=0.0000 | mean_pos=0.0641 | mean_neg=0.0071
+2026-07-02 18:27:21,746 Val   | pr_auc=0.0050 | roc_auc=0.6962 | cal_mean_pos=0.0297 | cal_mean_neg=0.0134 | T=1.0300
+2026-07-02 18:27:21,746 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 18:27:21,746 Sin mejora (3/15)
+2026-07-02 18:27:21,746 --- Epoca 25/100 ---
+2026-07-02 18:36:59,842 Train | loss=0.0351 | pr_auc=0.0352 | roc_auc=0.8901 | pred_pos=0.0000 | mean_pos=0.0648 | mean_neg=0.0070
+2026-07-02 18:36:59,842 Val   | pr_auc=0.0051 | roc_auc=0.7009 | cal_mean_pos=0.0303 | cal_mean_neg=0.0133 | T=1.0311
+2026-07-02 18:36:59,844 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 18:36:59,844 Sin mejora (4/15)
+2026-07-02 18:36:59,844 --- Epoca 26/100 ---
+2026-07-02 18:46:20,977 Train | loss=0.0349 | pr_auc=0.0361 | roc_auc=0.8929 | pred_pos=0.0000 | mean_pos=0.0666 | mean_neg=0.0070
+2026-07-02 18:46:20,981 Val   | pr_auc=0.0050 | roc_auc=0.7000 | cal_mean_pos=0.0301 | cal_mean_neg=0.0133 | T=1.0312
+2026-07-02 18:46:20,981 Clin  | sens=0.2667 | fa/h=1.2295 | f1=0.0537 | th=0.10 | ma=3 | score=-0.1022
+2026-07-02 18:46:20,981 Sin mejora (5/15)
+2026-07-02 18:46:20,981 --- Epoca 27/100 ---
+2026-07-02 18:56:25,055 Train | loss=0.0350 | pr_auc=0.0358 | roc_auc=0.8930 | pred_pos=0.0000 | mean_pos=0.0659 | mean_neg=0.0070
+2026-07-02 18:56:25,057 Val   | pr_auc=0.0053 | roc_auc=0.7047 | cal_mean_pos=0.0310 | cal_mean_neg=0.0133 | T=1.0311
+2026-07-02 18:56:25,057 Clin  | sens=0.2667 | fa/h=1.1916 | f1=0.0552 | th=0.10 | ma=3 | score=-0.0908
+2026-07-02 18:56:25,096 NUEVO MEJOR guardado (val_pr_auc=0.0053) en E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 18:56:25,096 --- Epoca 28/100 ---
+2026-07-02 19:06:15,825 Train | loss=0.0350 | pr_auc=0.0377 | roc_auc=0.8897 | pred_pos=0.0000 | mean_pos=0.0679 | mean_neg=0.0070
+2026-07-02 19:06:15,825 Val   | pr_auc=0.0053 | roc_auc=0.7013 | cal_mean_pos=0.0322 | cal_mean_neg=0.0139 | T=1.0192
+2026-07-02 19:06:15,825 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 19:06:15,825 Sin mejora (1/15)
+2026-07-02 19:06:15,826 --- Epoca 29/100 ---
+2026-07-02 19:16:00,198 Train | loss=0.0350 | pr_auc=0.0365 | roc_auc=0.8901 | pred_pos=0.0000 | mean_pos=0.0681 | mean_neg=0.0071
+2026-07-02 19:16:00,200 Val   | pr_auc=0.0052 | roc_auc=0.7043 | cal_mean_pos=0.0309 | cal_mean_neg=0.0132 | T=1.0317
+2026-07-02 19:16:00,200 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 19:16:00,200 Sin mejora (2/15)
+2026-07-02 19:16:00,200 --- Epoca 30/100 ---
+2026-07-02 19:25:44,094 Train | loss=0.0348 | pr_auc=0.0370 | roc_auc=0.8930 | pred_pos=0.0000 | mean_pos=0.0682 | mean_neg=0.0069
+2026-07-02 19:25:44,094 Val   | pr_auc=0.0048 | roc_auc=0.6963 | cal_mean_pos=0.0302 | cal_mean_neg=0.0135 | T=1.0279
+2026-07-02 19:25:44,094 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 19:25:44,094 Sin mejora (3/15)
+2026-07-02 19:25:44,094 --- Epoca 31/100 ---
+2026-07-02 19:35:46,632 Train | loss=0.0346 | pr_auc=0.0384 | roc_auc=0.8965 | pred_pos=0.0000 | mean_pos=0.0695 | mean_neg=0.0069
+2026-07-02 19:35:46,634 Val   | pr_auc=0.0050 | roc_auc=0.6964 | cal_mean_pos=0.0307 | cal_mean_neg=0.0135 | T=1.0274
+2026-07-02 19:35:46,634 Clin  | sens=0.0000 | fa/h=0.0000 | f1=0.0000 | th=0.50 | ma=3 | score=-1.0000
+2026-07-02 19:35:46,636 Sin mejora (4/15)
+2026-07-02 19:35:46,636 --- Epoca 32/100 ---
+2026-07-02 19:45:17,223 Train | loss=0.0349 | pr_auc=0.0372 | roc_auc=0.8916 | pred_pos=0.0000 | mean_pos=0.0679 | mean_neg=0.0068
+2026-07-02 19:45:17,224 Val   | pr_auc=0.0050 | roc_auc=0.6981 | cal_mean_pos=0.0310 | cal_mean_neg=0.0135 | T=1.0270
+2026-07-02 19:45:17,225 Clin  | sens=0.2667 | fa/h=1.5510 | f1=0.0437 | th=0.10 | ma=3 | score=-0.1986
+2026-07-02 19:45:17,225 Sin mejora (5/15)
+2026-07-02 19:45:17,225 --- Epoca 33/100 ---
+2026-07-02 19:55:00,052 Train | loss=0.0346 | pr_auc=0.0387 | roc_auc=0.8956 | pred_pos=0.0000 | mean_pos=0.0698 | mean_neg=0.0069
+2026-07-02 19:55:00,054 Val   | pr_auc=0.0051 | roc_auc=0.7010 | cal_mean_pos=0.0302 | cal_mean_neg=0.0129 | T=1.0369
+2026-07-02 19:55:00,054 Clin  | sens=0.2667 | fa/h=1.3997 | f1=0.0479 | th=0.10 | ma=3 | score=-0.1532
+2026-07-02 19:55:00,054 Sin mejora (6/15)
+2026-07-02 19:55:00,054 --- Epoca 34/100 ---
+2026-07-02 20:04:44,229 Train | loss=0.0343 | pr_auc=0.0407 | roc_auc=0.8986 | pred_pos=0.0000 | mean_pos=0.0712 | mean_neg=0.0068
+2026-07-02 20:04:44,233 Val   | pr_auc=0.0051 | roc_auc=0.7015 | cal_mean_pos=0.0313 | cal_mean_neg=0.0134 | T=1.0286
+2026-07-02 20:04:44,233 Clin  | sens=0.2667 | fa/h=1.6550 | f1=0.0412 | th=0.10 | ma=3 | score=-0.2298
+2026-07-02 20:04:44,233 Sin mejora (7/15)
+2026-07-02 20:04:44,233 --- Epoca 35/100 ---
+2026-07-02 20:14:40,623 Train | loss=0.0346 | pr_auc=0.0392 | roc_auc=0.8959 | pred_pos=0.0000 | mean_pos=0.0705 | mean_neg=0.0068
+2026-07-02 20:14:40,625 Val   | pr_auc=0.0051 | roc_auc=0.7007 | cal_mean_pos=0.0314 | cal_mean_neg=0.0134 | T=1.0280
+2026-07-02 20:14:40,625 Clin  | sens=0.2667 | fa/h=1.5888 | f1=0.0428 | th=0.10 | ma=3 | score=-0.2100
+2026-07-02 20:14:40,625 Sin mejora (8/15)
+2026-07-02 20:14:40,625 --- Epoca 36/100 ---
+2026-07-02 20:24:02,591 Train | loss=0.0343 | pr_auc=0.0392 | roc_auc=0.8994 | pred_pos=0.0000 | mean_pos=0.0707 | mean_neg=0.0069
+2026-07-02 20:24:02,593 Val   | pr_auc=0.0051 | roc_auc=0.6993 | cal_mean_pos=0.0314 | cal_mean_neg=0.0134 | T=1.0276
+2026-07-02 20:24:02,595 Clin  | sens=0.2667 | fa/h=1.5983 | f1=0.0426 | th=0.10 | ma=3 | score=-0.2128
+2026-07-02 20:24:02,595 Sin mejora (9/15)
+2026-07-02 20:24:02,595 --- Epoca 37/100 ---
+2026-07-02 20:33:48,584 Train | loss=0.0346 | pr_auc=0.0400 | roc_auc=0.8954 | pred_pos=0.0000 | mean_pos=0.0705 | mean_neg=0.0068
+2026-07-02 20:33:48,589 Val   | pr_auc=0.0052 | roc_auc=0.7019 | cal_mean_pos=0.0319 | cal_mean_neg=0.0135 | T=1.0261
+2026-07-02 20:33:48,589 Clin  | sens=0.2667 | fa/h=1.6456 | f1=0.0415 | th=0.10 | ma=3 | score=-0.2270
+2026-07-02 20:33:48,589 Sin mejora (10/15)
+2026-07-02 20:33:48,589 --- Epoca 38/100 ---
+2026-07-02 20:43:16,277 Train | loss=0.0344 | pr_auc=0.0404 | roc_auc=0.8979 | pred_pos=0.0000 | mean_pos=0.0711 | mean_neg=0.0068
+2026-07-02 20:43:16,277 Val   | pr_auc=0.0051 | roc_auc=0.7004 | cal_mean_pos=0.0314 | cal_mean_neg=0.0134 | T=1.0283
+2026-07-02 20:43:16,277 Clin  | sens=0.2667 | fa/h=1.5321 | f1=0.0442 | th=0.10 | ma=3 | score=-0.1930
+2026-07-02 20:43:16,277 Sin mejora (11/15)
+2026-07-02 20:43:16,277 --- Epoca 39/100 ---
+2026-07-02 20:53:01,234 Train | loss=0.0344 | pr_auc=0.0427 | roc_auc=0.8969 | pred_pos=0.0000 | mean_pos=0.0722 | mean_neg=0.0068
+2026-07-02 20:53:01,236 Val   | pr_auc=0.0052 | roc_auc=0.7014 | cal_mean_pos=0.0328 | cal_mean_neg=0.0139 | T=1.0191
+2026-07-02 20:53:01,236 Clin  | sens=0.2667 | fa/h=1.8347 | f1=0.0376 | th=0.10 | ma=3 | score=-0.2838
+2026-07-02 20:53:01,236 Sin mejora (12/15)
+2026-07-02 20:53:01,236 --- Epoca 40/100 ---
+2026-07-02 21:02:38,312 Train | loss=0.0344 | pr_auc=0.0400 | roc_auc=0.8978 | pred_pos=0.0000 | mean_pos=0.0719 | mean_neg=0.0069
+2026-07-02 21:02:38,316 Val   | pr_auc=0.0051 | roc_auc=0.7016 | cal_mean_pos=0.0312 | cal_mean_neg=0.0133 | T=1.0306
+2026-07-02 21:02:38,316 Clin  | sens=0.2667 | fa/h=1.5794 | f1=0.0430 | th=0.10 | ma=3 | score=-0.2071
+2026-07-02 21:02:38,316 Sin mejora (13/15)
+2026-07-02 21:02:38,316 --- Epoca 41/100 ---
+2026-07-02 21:12:54,363 Train | loss=0.0346 | pr_auc=0.0400 | roc_auc=0.8949 | pred_pos=0.0000 | mean_pos=0.0714 | mean_neg=0.0069
+2026-07-02 21:12:54,364 Val   | pr_auc=0.0051 | roc_auc=0.7011 | cal_mean_pos=0.0304 | cal_mean_neg=0.0130 | T=1.0363
+2026-07-02 21:12:54,364 Clin  | sens=0.2667 | fa/h=1.3997 | f1=0.0479 | th=0.10 | ma=3 | score=-0.1532
+2026-07-02 21:12:54,364 Sin mejora (14/15)
+2026-07-02 21:12:54,366 --- Epoca 42/100 ---
+2026-07-02 21:22:51,681 Train | loss=0.0347 | pr_auc=0.0387 | roc_auc=0.8960 | pred_pos=0.0000 | mean_pos=0.0694 | mean_neg=0.0068
+2026-07-02 21:22:51,683 Val   | pr_auc=0.0051 | roc_auc=0.7006 | cal_mean_pos=0.0311 | cal_mean_neg=0.0133 | T=1.0304
+2026-07-02 21:22:51,683 Clin  | sens=0.2667 | fa/h=1.6172 | f1=0.0421 | th=0.10 | ma=3 | score=-0.2185
+2026-07-02 21:22:51,683 Sin mejora (15/15)
+2026-07-02 21:22:51,683 Early stopping
+2026-07-02 21:22:51,683 Entrenamiento completado. Checkpoint en: E:\TFM\models\eegnet_8pat_best.pth
+2026-07-02 21:22:51,683 Log completo en: E:\TFM\experiments\logs\train_eegnet_8pat.log

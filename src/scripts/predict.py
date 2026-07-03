@@ -16,6 +16,12 @@ from src.models.dwt_mlp_model import DWTMLP
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 VAL_PATIENTS = ("chb05", "chb06")
+DEFAULT_INDEX_CSV = str(
+    PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "ventana1s" / "chbmit_index.csv"
+)
+DEFAULT_DWT_DATA_ROOT = str(
+    PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "dataset_chbmit_dwt_18ch_bin"
+)
 
 
 def parse_args():
@@ -40,6 +46,18 @@ def parse_args():
         nargs="+",
         default=list(VAL_PATIENTS),
         help="Pacientes de validación a inferir. Ej: --val_patients chb05 chb06"
+    )
+    parser.add_argument(
+        "--index_csv",
+        default=DEFAULT_INDEX_CSV,
+        type=str,
+        help="Ruta al CSV de índice para modelos de señal cruda. Por defecto chbmit_index.csv (todos los pacientes)."
+    )
+    parser.add_argument(
+        "--dwt_data_root",
+        default=DEFAULT_DWT_DATA_ROOT,
+        type=str,
+        help="Directorio raíz del dataset DWT (contiene chbmit_dwt_index.csv, .bin)."
     )
     return parser.parse_args()
 
@@ -161,12 +179,16 @@ def load_checkpoint_into_model(model, checkpoint_data, device: str):
     return model
 
 
-def build_inference_bundle(model_name: str, checkpoint_data, target_patients):
+def build_inference_bundle(model_name: str, checkpoint_data, target_patients, args=None):
     if model_name == "dwt":
-        data_root = PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "dataset_chbmit_dwt_18ch_bin"
-        csv_path = data_root / "chbmit_dwt_index.csv"
-        signals_bin = data_root / "chbmit_dwt_signals.bin"
-        labels_bin = data_root / "chbmit_dwt_labels.bin"
+        dwt_root = Path(args.dwt_data_root) if args else (
+            PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "dataset_chbmit_dwt_18ch_bin"
+        )
+        if not dwt_root.is_absolute():
+            dwt_root = PROJECT_ROOT / dwt_root
+        csv_path = dwt_root / "chbmit_dwt_index.csv"
+        signals_bin = dwt_root / "chbmit_dwt_signals.bin"
+        labels_bin = dwt_root / "chbmit_dwt_labels.bin"
 
         index_df = pd.read_csv(csv_path)
         subset_df = build_subset_dataframe(index_df, target_patients).reset_index(drop=True)
@@ -196,15 +218,21 @@ def build_inference_bundle(model_name: str, checkpoint_data, target_patients):
         local_indices = list(range(len(global_indices)))
         return subset_df, dataset, local_indices
 
+    # Modelos de señal cruda: usa el índice completo para obtener posiciones globales correctas
     data_root = PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "ventana1s"
-    csv_path = data_root / "chbmit_index_val_56.csv"
     signals_bin = data_root / "chbmit_signals.bin"
     labels_bin = data_root / "chbmit_labels.bin"
 
-    index_df = pd.read_csv(csv_path)
-    subset_df = build_subset_dataframe(index_df, target_patients).reset_index(drop=True)
+    index_csv = Path(args.index_csv) if args else (data_root / "chbmit_index.csv")
+    if not index_csv.is_absolute():
+        index_csv = PROJECT_ROOT / index_csv
 
-    global_indices = subset_df.index.to_list()
+    index_df = pd.read_csv(index_csv)
+
+    # Preservar posiciones originales en el binario ANTES de filtrar
+    mask = index_df["patient_id"].isin(target_patients)
+    global_indices = index_df.index[mask].tolist()
+    subset_df = build_subset_dataframe(index_df, target_patients).reset_index(drop=True)
     num_samples_full = len(index_df)
 
     dataset = SeizureDatasetMultichannel(
@@ -329,6 +357,7 @@ def main():
         model_name=args.model,
         checkpoint_data=checkpoint_data,
         target_patients=tuple(args.val_patients),
+        args=args,
     )
 
     model = build_model(args.model, checkpoint_data=checkpoint_data if args.model == "dwt" else None)

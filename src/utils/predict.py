@@ -16,9 +16,7 @@ VAL_PATIENTS = ("chb05", "chb06")
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Generar predicciones por registro para evaluación clínica."
-    )
+    parser = argparse.ArgumentParser(description="Generar predicciones por registro para evaluación clínica.")
     parser.add_argument(
         "--model",
         required=True,
@@ -41,14 +39,24 @@ def resolve_output_dir(output_dir_arg: str) -> Path:
     return p if p.is_absolute() else (PROJECT_ROOT / p)
 
 
-def build_subset_dataframe(index_df, target_patients):
-    df = index_df.copy()
+def build_index_dataframe(csv_path: Path):
+    df = pd.read_csv(csv_path)
 
-    if "patient_id" not in df.columns:
-        df["patient_id"] = df["filepath"].apply(lambda x: Path(x).stem.split("_")[0])
+    required = {
+        "patient_id", "record_id", "filepath", "window_index",
+        "start_sec", "end_sec", "label"
+    }
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(f"Faltan columnas en chbmit_index.csv: {missing}")
 
-    df = df[df["patient_id"].isin(target_patients)].copy()
-    df = df.sort_values(["patient_id", "record_id", "window_index"]).reset_index(drop=True)
+    if "global_idx" not in df.columns:
+        df = df.reset_index(drop=True)
+        df["global_idx"] = np.arange(len(df), dtype=np.int64)
+
+    if "patient_id" not in df.columns or df["patient_id"].isna().any():
+        df["patient_id"] = df["filepath"].apply(lambda x: Path(str(x)).stem.split("_")[0])
+
     return df
 
 
@@ -124,12 +132,7 @@ def save_predictions_per_record(val_df, probs, output_dir: Path):
         )
 
     val_df = val_df.copy().reset_index(drop=True)
-    val_df["record_id"] = val_df["filepath"].apply(
-        lambda x: Path(x).stem.rsplit("_win", 1)[0] if "_win" in Path(x).stem else Path(x).stem
-    )
     val_df["prob"] = probs.astype(np.float32)
-
-    print(f"Guardando predicciones por registro en: {output_dir}")
 
     for record_id, group in val_df.groupby("record_id", sort=False):
         out_path = output_dir / f"{record_id}.pt"
@@ -169,16 +172,16 @@ def main():
     signals_bin = PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "ventana1s" / "chbmit_signals.bin"
     labels_bin = PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "ventana1s" / "chbmit_labels.bin"
 
-    index_df = pd.read_csv(csv_path)
-    subset_df = build_subset_dataframe(
-        index_df,
-        ("chb01", "chb02", "chb03", "chb04",
-         "chb05", "chb06", "chb07", "chb08",
-         "chb09", "chb10")
-    )
+    index_df = build_index_dataframe(csv_path)
+
+    subset_df = index_df[index_df["patient_id"].isin(("chb01", "chb02", "chb03", "chb04",
+                                                      "chb05", "chb06", "chb07", "chb08",
+                                                      "chb09", "chb10"))].copy()
+
+    subset_df = subset_df.sort_values(["patient_id", "record_id", "window_index"]).reset_index(drop=True)
 
     val_df = subset_df[subset_df["patient_id"].isin(VAL_PATIENTS)].copy().reset_index(drop=True)
-    val_idx = val_df.index.tolist()
+    val_indices = val_df["global_idx"].tolist()
 
     print(f"Total ventanas subset : {len(subset_df)}")
     print(f"Total ventanas val    : {len(val_df)}")
@@ -197,7 +200,7 @@ def main():
     probs = predict_subset(
         model=model,
         dataset=val_dataset,
-        indices=val_idx,
+        indices=val_indices,
         batch_size=args.batch_size,
         num_workers=args.num_workers,
         device=args.device,
@@ -212,3 +215,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+#python -m src.utils.predict --model eegnet --checkpoint .\models\eegnet_clinical_best_def.pth --output_dir .\experiments\predictions\eegnet\def
+#python -m src.utils.predict --model attention_cnn --checkpoint .\models\attention_cnn_clinical_best.pth --output_dir .\experiments\predictions\attention_cnn\def
+#python -m src.utils.predict --model spatio_temporal_cnn --checkpoint .\models\spatio_temporal_cnn_clinical_best.pth --output_dir .\experiments\predictions\spatio_temporal_cnn\def

@@ -1,0 +1,6 @@
+record_id,event_type,ref_idx,matched_pred_indices,n_matched_pred_fragments,pred_start_s,pred_end_s,pred_duration_s,ref_start_s,ref_end_s,ref_duration_s,total_overlap_s,latency_to_onset_s
+chb05_06,TP,0,[0],1,449.0,453.0,4.0,417.0,532.0,115.0,4.0,32.0
+chb05_13,TP,0,[0],1,1097.0,1101.0,4.0,1086.0,1196.0,110.0,4.0,11.0
+chb05_16,TP,0,"[0, 1, 2, 3, 4, 5]",6,2335.0,2341.0,6.0,2317.0,2413.0,96.0,24.0,18.0
+chb05_17,TP,0,"[0, 1, 2, 3, 4]",5,2500.0,2503.0,3.0,2451.0,2571.0,120.0,20.0,49.0
+chb05_22,TP,0,"[0, 1]",2,2362.0,2365.0,3.0,2348.0,2465.0,117.0,6.0,14.0
