@@ -1,0 +1,193 @@
+{
+  "chb06_01": {
+    "patient_id": "chb06",
+    "record_id": "chb06_01",
+    "source_file": "chb06_01.edf",
+    "ref_events": [
+      [
+        1724.0,
+        1738.0
+      ],
+      [
+        7461.0,
+        7476.0
+      ],
+      [
+        13525.0,
+        13540.0
+      ]
+    ],
+    "n_windows_ref": 14427,
+    "record_duration_s": 14427.0
+  },
+  "chb06_02": {
+    "patient_id": "chb06",
+    "record_id": "chb06_02",
+    "source_file": "chb06_02.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_03": {
+    "patient_id": "chb06",
+    "record_id": "chb06_03",
+    "source_file": "chb06_03.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_04": {
+    "patient_id": "chb06",
+    "record_id": "chb06_04",
+    "source_file": "chb06_04.edf",
+    "ref_events": [
+      [
+        327.0,
+        347.0
+      ],
+      [
+        6211.0,
+        6231.0
+      ]
+    ],
+    "n_windows_ref": 13261,
+    "record_duration_s": 13261.0
+  },
+  "chb06_05": {
+    "patient_id": "chb06",
+    "record_id": "chb06_05",
+    "source_file": "chb06_05.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_06": {
+    "patient_id": "chb06",
+    "record_id": "chb06_06",
+    "source_file": "chb06_06.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_07": {
+    "patient_id": "chb06",
+    "record_id": "chb06_07",
+    "source_file": "chb06_07.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_08": {
+    "patient_id": "chb06",
+    "record_id": "chb06_08",
+    "source_file": "chb06_08.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_09": {
+    "patient_id": "chb06",
+    "record_id": "chb06_09",
+    "source_file": "chb06_09.edf",
+    "ref_events": [
+      [
+        12500.0,
+        12516.0
+      ]
+    ],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_10": {
+    "patient_id": "chb06",
+    "record_id": "chb06_10",
+    "source_file": "chb06_10.edf",
+    "ref_events": [
+      [
+        10833.0,
+        10845.0
+      ]
+    ],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_12": {
+    "patient_id": "chb06",
+    "record_id": "chb06_12",
+    "source_file": "chb06_12.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_13": {
+    "patient_id": "chb06",
+    "record_id": "chb06_13",
+    "source_file": "chb06_13.edf",
+    "ref_events": [
+      [
+        506.0,
+        519.0
+      ]
+    ],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_14": {
+    "patient_id": "chb06",
+    "record_id": "chb06_14",
+    "source_file": "chb06_14.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_15": {
+    "patient_id": "chb06",
+    "record_id": "chb06_15",
+    "source_file": "chb06_15.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_16": {
+    "patient_id": "chb06",
+    "record_id": "chb06_16",
+    "source_file": "chb06_16.edf",
+    "ref_events": [],
+    "n_windows_ref": 3030,
+    "record_duration_s": 3030.0
+  },
+  "chb06_17": {
+    "patient_id": "chb06",
+    "record_id": "chb06_17",
+    "source_file": "chb06_17.edf",
+    "ref_events": [],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  },
+  "chb06_18": {
+    "patient_id": "chb06",
+    "record_id": "chb06_18",
+    "source_file": "chb06_18.edf",
+    "ref_events": [
+      [
+        7799.0,
+        7811.0
+      ]
+    ],
+    "n_windows_ref": 7928,
+    "record_duration_s": 7928.0
+  },
+  "chb06_24": {
+    "patient_id": "chb06",
+    "record_id": "chb06_24",
+    "source_file": "chb06_24.edf",
+    "ref_events": [
+      [
+        9387.0,
+        9403.0
+      ]
+    ],
+    "n_windows_ref": 14400,
+    "record_duration_s": 14400.0
+  }
+}

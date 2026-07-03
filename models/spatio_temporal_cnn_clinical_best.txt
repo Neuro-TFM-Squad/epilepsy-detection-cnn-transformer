@@ -1,0 +1,97 @@
+Experimento:
+Entrenamiento de un modelo híbrido espacio-temporal para detección de crisis epilépticas cross-patient sobre CHB-MIT.
+
+Objetivo:
+Evaluar si una transferencia desde Bonn hacia CHB-MIT mejora la detección clínica de crisis en un escenario cross-patient con fuerte domain shift y desbalance extremo.
+
+Dataset y partición:
+
+Dataset principal: CHB-MIT.
+
+Train: chb01, chb02, chb03, chb04.
+
+Validación: chb05, chb06.
+
+Ventanas: 1 segundo.
+
+Normalización: Z-score por ventana y canal.
+
+Evaluación: event-based con suavizado temporal y métricas clínicas.
+
+Desbalance y pérdida:
+
+pos_weight bruto: 685.63.
+
+pos_weight capado: 8.00.
+
+Loss: BCEWithLogitsLoss suavizada con label_smoothing=0.0.
+
+Arquitectura:
+
+Modelo: SpatioTemporalCNN.
+
+Bloque temporal inicial transferido desde Bonn.
+
+Bloque espacial adaptado a CHB-MIT.
+
+Inicialmente se congela el bloque temporal.
+
+Se descongela para fine-tuning en la época 10.
+
+Normalización robusta con InstanceNorm/normas internas del modelo.
+
+Optimización con AdamW.
+
+Se usa EMA para suavizar los pesos durante el entrenamiento.
+
+Calibración post-hoc con temperature scaling.
+
+Early stopping basado en una métrica clínica compuesta.
+
+Configuración de entrenamiento:
+
+Batch size: 256.
+
+Epochs máximas: 60.
+
+Patience: 10.
+
+Gradient clipping: 1.0.
+
+head_lr = 1e-3.
+
+backbone_lr = 3e-4.
+
+temporal_lr = 1e-4.
+
+weight_decay = 1e-4.
+
+calibr_lr = 1e-2.
+
+Evaluación clínica:
+
+lambda_fa = 0.30.
+
+min_sensitivity_gate = 0.20.
+
+Grid de umbrales: 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50, 0.60.
+
+Media móvil: 3, 5, 7, 10.
+
+Checkpoint guardado:
+spatio_temporal_cnn_clinical_best.pth
+
+Resultados observados:
+
+El modelo aprende muy bien en entrenamiento.
+
+pr_auc y roc_auc en train suben rápidamente.
+
+En validación clínica, la sensibilidad por evento se queda alrededor de 0.33.
+
+Las falsas alarmas por hora se mantienen entre 3.2 y 3.9.
+
+El mejor score clínico sigue siendo negativo, por lo que el modelo no se considera solución final.
+
+Conclusión provisional:
+La transferencia desde Bonn ayuda a aprender patrones útiles, pero no resuelve por sí sola el problema cross-patient sobre CHB-MIT. El modelo mejora en train, pero no generaliza lo suficiente a nivel clínico en pacientes nunca vistos.

@@ -1,0 +1,2 @@
+n_records,tp_event,fp_event,fn_event,event_sensitivity,event_precision,event_f1,fa_per_hour,mean_latency_s,median_latency_s,cfg_window_step_s,cfg_threshold,cfg_moving_avg_size,cfg_min_event_duration_s,cfg_merge_gap_s,cfg_pre_ictal_tolerance_s,cfg_post_ictal_tolerance_s,cfg_max_event_duration_s,cfg_eps
+57,5,446,10,0.3333333331111111,0.011086474500862828,0.021459226843835787,4.217981589277859,0.2,0.0,1.0,0.75,1,10.0,10.0,0.0,0.0,,1e-08

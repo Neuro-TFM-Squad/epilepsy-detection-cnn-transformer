@@ -1,0 +1,3776 @@
+{
+  "n_records": 57,
+  "tp_event": 5,
+  "fp_event": 63,
+  "fn_event": 10,
+  "event_sensitivity": 0.3333333331111111,
+  "event_precision": 0.07352941175389274,
+  "event_f1": 0.1204819247205691,
+  "fa_per_hour": 0.5958135428800563,
+  "mean_latency_s": -1841.0,
+  "median_latency_s": -2325.0,
+  "per_record": [
+    {
+      "record_id": "chb05_01",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_02",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_03",
+      "n_ref_events": 0,
+      "n_pred_events": 2,
+      "tp_event": 0,
+      "fp_event": 2,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 1.9999999800000003,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          2992.0,
+          3016.0
+        ],
+        [
+          3039.0,
+          3044.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_03",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 2992.0,
+          "pred_end_s": 3016.0,
+          "pred_duration_s": 24.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_03",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 3039.0,
+          "pred_end_s": 3044.0,
+          "pred_duration_s": 5.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_04",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.9999999900000002,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          1459.0,
+          1487.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_04",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 1459.0,
+          "pred_end_s": 1487.0,
+          "pred_duration_s": 28.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_05",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.9999999900000002,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          480.0,
+          481.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_05",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 480.0,
+          "pred_end_s": 481.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_06",
+      "n_ref_events": 1,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 1,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [
+        [
+          417.0,
+          532.0
+        ]
+      ],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_06",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 0,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 417.0,
+          "ref_end_s": 532.0,
+          "ref_duration_s": 115.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_07",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_08",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_09",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_10",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_11",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_12",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_13",
+      "n_ref_events": 1,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 1,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [
+        [
+          1086.0,
+          1196.0
+        ]
+      ],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_13",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 0,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 1086.0,
+          "ref_end_s": 1196.0,
+          "ref_duration_s": 110.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_14",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_15",
+      "n_ref_events": 0,
+      "n_pred_events": 6,
+      "tp_event": 0,
+      "fp_event": 6,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 5.999999940000001,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          1723.0,
+          1736.0
+        ],
+        [
+          1742.0,
+          1749.0
+        ],
+        [
+          1762.0,
+          1766.0
+        ],
+        [
+          1775.0,
+          1787.0
+        ],
+        [
+          1798.0,
+          1802.0
+        ],
+        [
+          1808.0,
+          1809.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_15",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 1723.0,
+          "pred_end_s": 1736.0,
+          "pred_duration_s": 13.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_15",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 1742.0,
+          "pred_end_s": 1749.0,
+          "pred_duration_s": 7.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_15",
+          "event_type": "FP",
+          "pred_idx": 2,
+          "ref_idx": null,
+          "pred_start_s": 1762.0,
+          "pred_end_s": 1766.0,
+          "pred_duration_s": 4.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_15",
+          "event_type": "FP",
+          "pred_idx": 3,
+          "ref_idx": null,
+          "pred_start_s": 1775.0,
+          "pred_end_s": 1787.0,
+          "pred_duration_s": 12.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_15",
+          "event_type": "FP",
+          "pred_idx": 4,
+          "ref_idx": null,
+          "pred_start_s": 1798.0,
+          "pred_end_s": 1802.0,
+          "pred_duration_s": 4.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_15",
+          "event_type": "FP",
+          "pred_idx": 5,
+          "ref_idx": null,
+          "pred_start_s": 1808.0,
+          "pred_end_s": 1809.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_16",
+      "n_ref_events": 1,
+      "n_pred_events": 2,
+      "tp_event": 1,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.9999999900000002,
+      "event_precision": 0.4999999975,
+      "event_f1": 0.6666666577777778,
+      "fa_per_hour": 0.9999999900000002,
+      "mean_latency_s": -1311.0,
+      "median_latency_s": -1311.0,
+      "latencies_s": [
+        -1311.0
+      ],
+      "pred_events": [
+        [
+          1006.0,
+          1015.0
+        ],
+        [
+          1026.0,
+          1057.0
+        ]
+      ],
+      "ref_events": [
+        [
+          2317.0,
+          2413.0
+        ]
+      ],
+      "matches": [
+        {
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 1006.0,
+          "pred_end_s": 1015.0,
+          "pred_duration_s": 9.0,
+          "ref_start_s": 2317.0,
+          "ref_end_s": 2413.0,
+          "ref_duration_s": 96.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": -1311.0
+        }
+      ],
+      "event_rows": [
+        {
+          "record_id": "chb05_16",
+          "event_type": "TP",
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 1006.0,
+          "pred_end_s": 1015.0,
+          "pred_duration_s": 9.0,
+          "ref_start_s": 2317.0,
+          "ref_end_s": 2413.0,
+          "ref_duration_s": 96.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": -1311.0
+        },
+        {
+          "record_id": "chb05_16",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 1026.0,
+          "pred_end_s": 1057.0,
+          "pred_duration_s": 31.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_17",
+      "n_ref_events": 1,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 1,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [
+        [
+          2451.0,
+          2571.0
+        ]
+      ],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_17",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 0,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 2451.0,
+          "ref_end_s": 2571.0,
+          "ref_duration_s": 120.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_18",
+      "n_ref_events": 0,
+      "n_pred_events": 2,
+      "tp_event": 0,
+      "fp_event": 2,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 1.9999999800000003,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          1714.0,
+          1798.0
+        ],
+        [
+          1830.0,
+          1831.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_18",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 1714.0,
+          "pred_end_s": 1798.0,
+          "pred_duration_s": 84.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_18",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 1830.0,
+          "pred_end_s": 1831.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_19",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_20",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.9999999900000002,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          2985.0,
+          3073.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_20",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 2985.0,
+          "pred_end_s": 3073.0,
+          "pred_duration_s": 88.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_21",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_22",
+      "n_ref_events": 1,
+      "n_pred_events": 3,
+      "tp_event": 1,
+      "fp_event": 2,
+      "fn_event": 0,
+      "event_sensitivity": 0.9999999900000002,
+      "event_precision": 0.3333333322222222,
+      "event_f1": 0.49999999375000004,
+      "fa_per_hour": 1.9999999800000003,
+      "mean_latency_s": -2325.0,
+      "median_latency_s": -2325.0,
+      "latencies_s": [
+        -2325.0
+      ],
+      "pred_events": [
+        [
+          23.0,
+          24.0
+        ],
+        [
+          438.0,
+          439.0
+        ],
+        [
+          3315.0,
+          3316.0
+        ]
+      ],
+      "ref_events": [
+        [
+          2348.0,
+          2465.0
+        ]
+      ],
+      "matches": [
+        {
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 23.0,
+          "pred_end_s": 24.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": 2348.0,
+          "ref_end_s": 2465.0,
+          "ref_duration_s": 117.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": -2325.0
+        }
+      ],
+      "event_rows": [
+        {
+          "record_id": "chb05_22",
+          "event_type": "TP",
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 23.0,
+          "pred_end_s": 24.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": 2348.0,
+          "ref_end_s": 2465.0,
+          "ref_duration_s": 117.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": -2325.0
+        },
+        {
+          "record_id": "chb05_22",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 438.0,
+          "pred_end_s": 439.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_22",
+          "event_type": "FP",
+          "pred_idx": 2,
+          "ref_idx": null,
+          "pred_start_s": 3315.0,
+          "pred_end_s": 3316.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_23",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_24",
+      "n_ref_events": 0,
+      "n_pred_events": 2,
+      "tp_event": 0,
+      "fp_event": 2,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 1.9999999800000003,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          3159.0,
+          3160.0
+        ],
+        [
+          3472.0,
+          3473.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_24",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 3159.0,
+          "pred_end_s": 3160.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_24",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 3472.0,
+          "pred_end_s": 3473.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_25",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_26",
+      "n_ref_events": 0,
+      "n_pred_events": 3,
+      "tp_event": 0,
+      "fp_event": 3,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 2.9999999700000006,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          921.0,
+          1016.0
+        ],
+        [
+          2165.0,
+          2169.0
+        ],
+        [
+          2625.0,
+          2626.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_26",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 921.0,
+          "pred_end_s": 1016.0,
+          "pred_duration_s": 95.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_26",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 2165.0,
+          "pred_end_s": 2169.0,
+          "pred_duration_s": 4.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_26",
+          "event_type": "FP",
+          "pred_idx": 2,
+          "ref_idx": null,
+          "pred_start_s": 2625.0,
+          "pred_end_s": 2626.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_27",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_28",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_29",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.9999999900000002,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          338.0,
+          339.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_29",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 338.0,
+          "pred_end_s": 339.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_30",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_31",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_32",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_33",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_34",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.9999999900000002,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          407.0,
+          408.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_34",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 407.0,
+          "pred_end_s": 408.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_35",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_36",
+      "n_ref_events": 0,
+      "n_pred_events": 2,
+      "tp_event": 0,
+      "fp_event": 2,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 1.9999999800000003,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          1752.0,
+          1759.0
+        ],
+        [
+          3099.0,
+          3101.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_36",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 1752.0,
+          "pred_end_s": 1759.0,
+          "pred_duration_s": 7.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_36",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 3099.0,
+          "pred_end_s": 3101.0,
+          "pred_duration_s": 2.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_37",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb05_38",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.9999999900000002,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          3019.0,
+          3020.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_38",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 3019.0,
+          "pred_end_s": 3020.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb05_39",
+      "n_ref_events": 0,
+      "n_pred_events": 7,
+      "tp_event": 0,
+      "fp_event": 7,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 6.999999930000001,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          676.0,
+          682.0
+        ],
+        [
+          769.0,
+          770.0
+        ],
+        [
+          990.0,
+          993.0
+        ],
+        [
+          999.0,
+          1001.0
+        ],
+        [
+          1315.0,
+          1316.0
+        ],
+        [
+          1322.0,
+          1323.0
+        ],
+        [
+          1373.0,
+          1374.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb05_39",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 676.0,
+          "pred_end_s": 682.0,
+          "pred_duration_s": 6.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_39",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 769.0,
+          "pred_end_s": 770.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_39",
+          "event_type": "FP",
+          "pred_idx": 2,
+          "ref_idx": null,
+          "pred_start_s": 990.0,
+          "pred_end_s": 993.0,
+          "pred_duration_s": 3.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_39",
+          "event_type": "FP",
+          "pred_idx": 3,
+          "ref_idx": null,
+          "pred_start_s": 999.0,
+          "pred_end_s": 1001.0,
+          "pred_duration_s": 2.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_39",
+          "event_type": "FP",
+          "pred_idx": 4,
+          "ref_idx": null,
+          "pred_start_s": 1315.0,
+          "pred_end_s": 1316.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_39",
+          "event_type": "FP",
+          "pred_idx": 5,
+          "ref_idx": null,
+          "pred_start_s": 1322.0,
+          "pred_end_s": 1323.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb05_39",
+          "event_type": "FP",
+          "pred_idx": 6,
+          "ref_idx": null,
+          "pred_start_s": 1373.0,
+          "pred_end_s": 1374.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_01",
+      "n_ref_events": 3,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 3,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [
+        [
+          1724.0,
+          1738.0
+        ],
+        [
+          7461.0,
+          7476.0
+        ],
+        [
+          13525.0,
+          13540.0
+        ]
+      ],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_01",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 0,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 1724.0,
+          "ref_end_s": 1738.0,
+          "ref_duration_s": 14.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_01",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 1,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 7461.0,
+          "ref_end_s": 7476.0,
+          "ref_duration_s": 15.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_01",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 2,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 13525.0,
+          "ref_end_s": 13540.0,
+          "ref_duration_s": 15.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_02",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb06_03",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb06_04",
+      "n_ref_events": 2,
+      "n_pred_events": 1,
+      "tp_event": 1,
+      "fp_event": 0,
+      "fn_event": 1,
+      "event_sensitivity": 0.4999999975,
+      "event_precision": 0.9999999900000002,
+      "event_f1": 0.6666666577777778,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": 8492.0,
+      "median_latency_s": 8492.0,
+      "latencies_s": [
+        8492.0
+      ],
+      "pred_events": [
+        [
+          8819.0,
+          8820.0
+        ]
+      ],
+      "ref_events": [
+        [
+          327.0,
+          347.0
+        ],
+        [
+          6211.0,
+          6231.0
+        ]
+      ],
+      "matches": [
+        {
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 8819.0,
+          "pred_end_s": 8820.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": 327.0,
+          "ref_end_s": 347.0,
+          "ref_duration_s": 20.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": 8492.0
+        }
+      ],
+      "event_rows": [
+        {
+          "record_id": "chb06_04",
+          "event_type": "TP",
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 8819.0,
+          "pred_end_s": 8820.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": 327.0,
+          "ref_end_s": 347.0,
+          "ref_duration_s": 20.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": 8492.0
+        },
+        {
+          "record_id": "chb06_04",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 1,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 6211.0,
+          "ref_end_s": 6231.0,
+          "ref_duration_s": 20.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_05",
+      "n_ref_events": 0,
+      "n_pred_events": 17,
+      "tp_event": 0,
+      "fp_event": 17,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 4.2499999893750005,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          3226.0,
+          3303.0
+        ],
+        [
+          3442.0,
+          3443.0
+        ],
+        [
+          6652.0,
+          6653.0
+        ],
+        [
+          6697.0,
+          6699.0
+        ],
+        [
+          7030.0,
+          7038.0
+        ],
+        [
+          7047.0,
+          7102.0
+        ],
+        [
+          7154.0,
+          7155.0
+        ],
+        [
+          9333.0,
+          9334.0
+        ],
+        [
+          10015.0,
+          10016.0
+        ],
+        [
+          10561.0,
+          10562.0
+        ],
+        [
+          10618.0,
+          10619.0
+        ],
+        [
+          10626.0,
+          10627.0
+        ],
+        [
+          10688.0,
+          10689.0
+        ],
+        [
+          10721.0,
+          10722.0
+        ],
+        [
+          10845.0,
+          10846.0
+        ],
+        [
+          10909.0,
+          10910.0
+        ],
+        [
+          12993.0,
+          12994.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 3226.0,
+          "pred_end_s": 3303.0,
+          "pred_duration_s": 77.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 3442.0,
+          "pred_end_s": 3443.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 2,
+          "ref_idx": null,
+          "pred_start_s": 6652.0,
+          "pred_end_s": 6653.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 3,
+          "ref_idx": null,
+          "pred_start_s": 6697.0,
+          "pred_end_s": 6699.0,
+          "pred_duration_s": 2.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 4,
+          "ref_idx": null,
+          "pred_start_s": 7030.0,
+          "pred_end_s": 7038.0,
+          "pred_duration_s": 8.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 5,
+          "ref_idx": null,
+          "pred_start_s": 7047.0,
+          "pred_end_s": 7102.0,
+          "pred_duration_s": 55.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 6,
+          "ref_idx": null,
+          "pred_start_s": 7154.0,
+          "pred_end_s": 7155.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 7,
+          "ref_idx": null,
+          "pred_start_s": 9333.0,
+          "pred_end_s": 9334.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 8,
+          "ref_idx": null,
+          "pred_start_s": 10015.0,
+          "pred_end_s": 10016.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 9,
+          "ref_idx": null,
+          "pred_start_s": 10561.0,
+          "pred_end_s": 10562.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 10,
+          "ref_idx": null,
+          "pred_start_s": 10618.0,
+          "pred_end_s": 10619.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 11,
+          "ref_idx": null,
+          "pred_start_s": 10626.0,
+          "pred_end_s": 10627.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 12,
+          "ref_idx": null,
+          "pred_start_s": 10688.0,
+          "pred_end_s": 10689.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 13,
+          "ref_idx": null,
+          "pred_start_s": 10721.0,
+          "pred_end_s": 10722.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 14,
+          "ref_idx": null,
+          "pred_start_s": 10845.0,
+          "pred_end_s": 10846.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 15,
+          "ref_idx": null,
+          "pred_start_s": 10909.0,
+          "pred_end_s": 10910.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_05",
+          "event_type": "FP",
+          "pred_idx": 16,
+          "ref_idx": null,
+          "pred_start_s": 12993.0,
+          "pred_end_s": 12994.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_06",
+      "n_ref_events": 0,
+      "n_pred_events": 3,
+      "tp_event": 0,
+      "fp_event": 3,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.7499999981250001,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          47.0,
+          48.0
+        ],
+        [
+          3818.0,
+          3826.0
+        ],
+        [
+          7348.0,
+          7349.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_06",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 47.0,
+          "pred_end_s": 48.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_06",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 3818.0,
+          "pred_end_s": 3826.0,
+          "pred_duration_s": 8.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_06",
+          "event_type": "FP",
+          "pred_idx": 2,
+          "ref_idx": null,
+          "pred_start_s": 7348.0,
+          "pred_end_s": 7349.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_07",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb06_08",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.249999999375,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          1626.0,
+          1627.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_08",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 1626.0,
+          "pred_end_s": 1627.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_09",
+      "n_ref_events": 1,
+      "n_pred_events": 1,
+      "tp_event": 1,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.9999999900000002,
+      "event_precision": 0.9999999900000002,
+      "event_f1": 0.9999999850000002,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": -7639.0,
+      "median_latency_s": -7639.0,
+      "latencies_s": [
+        -7639.0
+      ],
+      "pred_events": [
+        [
+          4861.0,
+          4862.0
+        ]
+      ],
+      "ref_events": [
+        [
+          12500.0,
+          12516.0
+        ]
+      ],
+      "matches": [
+        {
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 4861.0,
+          "pred_end_s": 4862.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": 12500.0,
+          "ref_end_s": 12516.0,
+          "ref_duration_s": 16.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": -7639.0
+        }
+      ],
+      "event_rows": [
+        {
+          "record_id": "chb06_09",
+          "event_type": "TP",
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 4861.0,
+          "pred_end_s": 4862.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": 12500.0,
+          "ref_end_s": 12516.0,
+          "ref_duration_s": 16.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": -7639.0
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_10",
+      "n_ref_events": 1,
+      "n_pred_events": 8,
+      "tp_event": 1,
+      "fp_event": 7,
+      "fn_event": 0,
+      "event_sensitivity": 0.9999999900000002,
+      "event_precision": 0.12499999984374999,
+      "event_f1": 0.22222221975308643,
+      "fa_per_hour": 1.749999995625,
+      "mean_latency_s": -6422.0,
+      "median_latency_s": -6422.0,
+      "latencies_s": [
+        -6422.0
+      ],
+      "pred_events": [
+        [
+          4411.0,
+          4433.0
+        ],
+        [
+          4441.0,
+          4460.0
+        ],
+        [
+          4502.0,
+          4503.0
+        ],
+        [
+          4857.0,
+          4866.0
+        ],
+        [
+          8382.0,
+          8447.0
+        ],
+        [
+          11681.0,
+          11688.0
+        ],
+        [
+          11703.0,
+          11750.0
+        ],
+        [
+          11774.0,
+          11775.0
+        ]
+      ],
+      "ref_events": [
+        [
+          10833.0,
+          10845.0
+        ]
+      ],
+      "matches": [
+        {
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 4411.0,
+          "pred_end_s": 4433.0,
+          "pred_duration_s": 22.0,
+          "ref_start_s": 10833.0,
+          "ref_end_s": 10845.0,
+          "ref_duration_s": 12.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": -6422.0
+        }
+      ],
+      "event_rows": [
+        {
+          "record_id": "chb06_10",
+          "event_type": "TP",
+          "pred_idx": 0,
+          "ref_idx": 0,
+          "pred_start_s": 4411.0,
+          "pred_end_s": 4433.0,
+          "pred_duration_s": 22.0,
+          "ref_start_s": 10833.0,
+          "ref_end_s": 10845.0,
+          "ref_duration_s": 12.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": -6422.0
+        },
+        {
+          "record_id": "chb06_10",
+          "event_type": "FP",
+          "pred_idx": 1,
+          "ref_idx": null,
+          "pred_start_s": 4441.0,
+          "pred_end_s": 4460.0,
+          "pred_duration_s": 19.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_10",
+          "event_type": "FP",
+          "pred_idx": 2,
+          "ref_idx": null,
+          "pred_start_s": 4502.0,
+          "pred_end_s": 4503.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_10",
+          "event_type": "FP",
+          "pred_idx": 3,
+          "ref_idx": null,
+          "pred_start_s": 4857.0,
+          "pred_end_s": 4866.0,
+          "pred_duration_s": 9.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_10",
+          "event_type": "FP",
+          "pred_idx": 4,
+          "ref_idx": null,
+          "pred_start_s": 8382.0,
+          "pred_end_s": 8447.0,
+          "pred_duration_s": 65.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_10",
+          "event_type": "FP",
+          "pred_idx": 5,
+          "ref_idx": null,
+          "pred_start_s": 11681.0,
+          "pred_end_s": 11688.0,
+          "pred_duration_s": 7.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_10",
+          "event_type": "FP",
+          "pred_idx": 6,
+          "ref_idx": null,
+          "pred_start_s": 11703.0,
+          "pred_end_s": 11750.0,
+          "pred_duration_s": 47.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        },
+        {
+          "record_id": "chb06_10",
+          "event_type": "FP",
+          "pred_idx": 7,
+          "ref_idx": null,
+          "pred_start_s": 11774.0,
+          "pred_end_s": 11775.0,
+          "pred_duration_s": 1.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_12",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.249999999375,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          2611.0,
+          2663.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_12",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 2611.0,
+          "pred_end_s": 2663.0,
+          "pred_duration_s": 52.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_13",
+      "n_ref_events": 1,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 1,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [
+        [
+          506.0,
+          519.0
+        ]
+      ],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_13",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 0,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 506.0,
+          "ref_end_s": 519.0,
+          "ref_duration_s": 13.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_14",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb06_15",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb06_16",
+      "n_ref_events": 0,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": []
+    },
+    {
+      "record_id": "chb06_17",
+      "n_ref_events": 0,
+      "n_pred_events": 1,
+      "tp_event": 0,
+      "fp_event": 1,
+      "fn_event": 0,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.249999999375,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [
+        [
+          179.0,
+          183.0
+        ]
+      ],
+      "ref_events": [],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_17",
+          "event_type": "FP",
+          "pred_idx": 0,
+          "ref_idx": null,
+          "pred_start_s": 179.0,
+          "pred_end_s": 183.0,
+          "pred_duration_s": 4.0,
+          "ref_start_s": null,
+          "ref_end_s": null,
+          "ref_duration_s": null,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_18",
+      "n_ref_events": 1,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 1,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [
+        [
+          7799.0,
+          7811.0
+        ]
+      ],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_18",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 0,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 7799.0,
+          "ref_end_s": 7811.0,
+          "ref_duration_s": 12.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    },
+    {
+      "record_id": "chb06_24",
+      "n_ref_events": 1,
+      "n_pred_events": 0,
+      "tp_event": 0,
+      "fp_event": 0,
+      "fn_event": 1,
+      "event_sensitivity": 0.0,
+      "event_precision": 0.0,
+      "event_f1": 0.0,
+      "fa_per_hour": 0.0,
+      "mean_latency_s": null,
+      "median_latency_s": null,
+      "latencies_s": [],
+      "pred_events": [],
+      "ref_events": [
+        [
+          9387.0,
+          9403.0
+        ]
+      ],
+      "matches": [],
+      "event_rows": [
+        {
+          "record_id": "chb06_24",
+          "event_type": "FN",
+          "pred_idx": null,
+          "ref_idx": 0,
+          "pred_start_s": null,
+          "pred_end_s": null,
+          "pred_duration_s": null,
+          "ref_start_s": 9387.0,
+          "ref_end_s": 9403.0,
+          "ref_duration_s": 16.0,
+          "overlap_s": 0.0,
+          "latency_to_onset_s": null
+        }
+      ]
+    }
+  ],
+  "event_rows": [
+    {
+      "record_id": "chb05_03",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 2992.0,
+      "pred_end_s": 3016.0,
+      "pred_duration_s": 24.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_03",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 3039.0,
+      "pred_end_s": 3044.0,
+      "pred_duration_s": 5.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_04",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 1459.0,
+      "pred_end_s": 1487.0,
+      "pred_duration_s": 28.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_05",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 480.0,
+      "pred_end_s": 481.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_06",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 0,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 417.0,
+      "ref_end_s": 532.0,
+      "ref_duration_s": 115.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_13",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 0,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 1086.0,
+      "ref_end_s": 1196.0,
+      "ref_duration_s": 110.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_15",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 1723.0,
+      "pred_end_s": 1736.0,
+      "pred_duration_s": 13.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_15",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 1742.0,
+      "pred_end_s": 1749.0,
+      "pred_duration_s": 7.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_15",
+      "event_type": "FP",
+      "pred_idx": 2,
+      "ref_idx": null,
+      "pred_start_s": 1762.0,
+      "pred_end_s": 1766.0,
+      "pred_duration_s": 4.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_15",
+      "event_type": "FP",
+      "pred_idx": 3,
+      "ref_idx": null,
+      "pred_start_s": 1775.0,
+      "pred_end_s": 1787.0,
+      "pred_duration_s": 12.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_15",
+      "event_type": "FP",
+      "pred_idx": 4,
+      "ref_idx": null,
+      "pred_start_s": 1798.0,
+      "pred_end_s": 1802.0,
+      "pred_duration_s": 4.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_15",
+      "event_type": "FP",
+      "pred_idx": 5,
+      "ref_idx": null,
+      "pred_start_s": 1808.0,
+      "pred_end_s": 1809.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_16",
+      "event_type": "TP",
+      "pred_idx": 0,
+      "ref_idx": 0,
+      "pred_start_s": 1006.0,
+      "pred_end_s": 1015.0,
+      "pred_duration_s": 9.0,
+      "ref_start_s": 2317.0,
+      "ref_end_s": 2413.0,
+      "ref_duration_s": 96.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": -1311.0
+    },
+    {
+      "record_id": "chb05_16",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 1026.0,
+      "pred_end_s": 1057.0,
+      "pred_duration_s": 31.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_17",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 0,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 2451.0,
+      "ref_end_s": 2571.0,
+      "ref_duration_s": 120.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_18",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 1714.0,
+      "pred_end_s": 1798.0,
+      "pred_duration_s": 84.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_18",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 1830.0,
+      "pred_end_s": 1831.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_20",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 2985.0,
+      "pred_end_s": 3073.0,
+      "pred_duration_s": 88.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_22",
+      "event_type": "TP",
+      "pred_idx": 0,
+      "ref_idx": 0,
+      "pred_start_s": 23.0,
+      "pred_end_s": 24.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": 2348.0,
+      "ref_end_s": 2465.0,
+      "ref_duration_s": 117.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": -2325.0
+    },
+    {
+      "record_id": "chb05_22",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 438.0,
+      "pred_end_s": 439.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_22",
+      "event_type": "FP",
+      "pred_idx": 2,
+      "ref_idx": null,
+      "pred_start_s": 3315.0,
+      "pred_end_s": 3316.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_24",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 3159.0,
+      "pred_end_s": 3160.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_24",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 3472.0,
+      "pred_end_s": 3473.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_26",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 921.0,
+      "pred_end_s": 1016.0,
+      "pred_duration_s": 95.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_26",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 2165.0,
+      "pred_end_s": 2169.0,
+      "pred_duration_s": 4.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_26",
+      "event_type": "FP",
+      "pred_idx": 2,
+      "ref_idx": null,
+      "pred_start_s": 2625.0,
+      "pred_end_s": 2626.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_29",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 338.0,
+      "pred_end_s": 339.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_34",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 407.0,
+      "pred_end_s": 408.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_36",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 1752.0,
+      "pred_end_s": 1759.0,
+      "pred_duration_s": 7.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_36",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 3099.0,
+      "pred_end_s": 3101.0,
+      "pred_duration_s": 2.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_38",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 3019.0,
+      "pred_end_s": 3020.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_39",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 676.0,
+      "pred_end_s": 682.0,
+      "pred_duration_s": 6.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_39",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 769.0,
+      "pred_end_s": 770.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_39",
+      "event_type": "FP",
+      "pred_idx": 2,
+      "ref_idx": null,
+      "pred_start_s": 990.0,
+      "pred_end_s": 993.0,
+      "pred_duration_s": 3.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_39",
+      "event_type": "FP",
+      "pred_idx": 3,
+      "ref_idx": null,
+      "pred_start_s": 999.0,
+      "pred_end_s": 1001.0,
+      "pred_duration_s": 2.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_39",
+      "event_type": "FP",
+      "pred_idx": 4,
+      "ref_idx": null,
+      "pred_start_s": 1315.0,
+      "pred_end_s": 1316.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_39",
+      "event_type": "FP",
+      "pred_idx": 5,
+      "ref_idx": null,
+      "pred_start_s": 1322.0,
+      "pred_end_s": 1323.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb05_39",
+      "event_type": "FP",
+      "pred_idx": 6,
+      "ref_idx": null,
+      "pred_start_s": 1373.0,
+      "pred_end_s": 1374.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_01",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 0,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 1724.0,
+      "ref_end_s": 1738.0,
+      "ref_duration_s": 14.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_01",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 1,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 7461.0,
+      "ref_end_s": 7476.0,
+      "ref_duration_s": 15.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_01",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 2,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 13525.0,
+      "ref_end_s": 13540.0,
+      "ref_duration_s": 15.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_04",
+      "event_type": "TP",
+      "pred_idx": 0,
+      "ref_idx": 0,
+      "pred_start_s": 8819.0,
+      "pred_end_s": 8820.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": 327.0,
+      "ref_end_s": 347.0,
+      "ref_duration_s": 20.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": 8492.0
+    },
+    {
+      "record_id": "chb06_04",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 1,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 6211.0,
+      "ref_end_s": 6231.0,
+      "ref_duration_s": 20.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 3226.0,
+      "pred_end_s": 3303.0,
+      "pred_duration_s": 77.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 3442.0,
+      "pred_end_s": 3443.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 2,
+      "ref_idx": null,
+      "pred_start_s": 6652.0,
+      "pred_end_s": 6653.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 3,
+      "ref_idx": null,
+      "pred_start_s": 6697.0,
+      "pred_end_s": 6699.0,
+      "pred_duration_s": 2.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 4,
+      "ref_idx": null,
+      "pred_start_s": 7030.0,
+      "pred_end_s": 7038.0,
+      "pred_duration_s": 8.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 5,
+      "ref_idx": null,
+      "pred_start_s": 7047.0,
+      "pred_end_s": 7102.0,
+      "pred_duration_s": 55.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 6,
+      "ref_idx": null,
+      "pred_start_s": 7154.0,
+      "pred_end_s": 7155.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 7,
+      "ref_idx": null,
+      "pred_start_s": 9333.0,
+      "pred_end_s": 9334.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 8,
+      "ref_idx": null,
+      "pred_start_s": 10015.0,
+      "pred_end_s": 10016.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 9,
+      "ref_idx": null,
+      "pred_start_s": 10561.0,
+      "pred_end_s": 10562.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 10,
+      "ref_idx": null,
+      "pred_start_s": 10618.0,
+      "pred_end_s": 10619.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 11,
+      "ref_idx": null,
+      "pred_start_s": 10626.0,
+      "pred_end_s": 10627.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 12,
+      "ref_idx": null,
+      "pred_start_s": 10688.0,
+      "pred_end_s": 10689.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 13,
+      "ref_idx": null,
+      "pred_start_s": 10721.0,
+      "pred_end_s": 10722.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 14,
+      "ref_idx": null,
+      "pred_start_s": 10845.0,
+      "pred_end_s": 10846.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 15,
+      "ref_idx": null,
+      "pred_start_s": 10909.0,
+      "pred_end_s": 10910.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_05",
+      "event_type": "FP",
+      "pred_idx": 16,
+      "ref_idx": null,
+      "pred_start_s": 12993.0,
+      "pred_end_s": 12994.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_06",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 47.0,
+      "pred_end_s": 48.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_06",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 3818.0,
+      "pred_end_s": 3826.0,
+      "pred_duration_s": 8.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_06",
+      "event_type": "FP",
+      "pred_idx": 2,
+      "ref_idx": null,
+      "pred_start_s": 7348.0,
+      "pred_end_s": 7349.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_08",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 1626.0,
+      "pred_end_s": 1627.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_09",
+      "event_type": "TP",
+      "pred_idx": 0,
+      "ref_idx": 0,
+      "pred_start_s": 4861.0,
+      "pred_end_s": 4862.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": 12500.0,
+      "ref_end_s": 12516.0,
+      "ref_duration_s": 16.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": -7639.0
+    },
+    {
+      "record_id": "chb06_10",
+      "event_type": "TP",
+      "pred_idx": 0,
+      "ref_idx": 0,
+      "pred_start_s": 4411.0,
+      "pred_end_s": 4433.0,
+      "pred_duration_s": 22.0,
+      "ref_start_s": 10833.0,
+      "ref_end_s": 10845.0,
+      "ref_duration_s": 12.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": -6422.0
+    },
+    {
+      "record_id": "chb06_10",
+      "event_type": "FP",
+      "pred_idx": 1,
+      "ref_idx": null,
+      "pred_start_s": 4441.0,
+      "pred_end_s": 4460.0,
+      "pred_duration_s": 19.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_10",
+      "event_type": "FP",
+      "pred_idx": 2,
+      "ref_idx": null,
+      "pred_start_s": 4502.0,
+      "pred_end_s": 4503.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_10",
+      "event_type": "FP",
+      "pred_idx": 3,
+      "ref_idx": null,
+      "pred_start_s": 4857.0,
+      "pred_end_s": 4866.0,
+      "pred_duration_s": 9.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_10",
+      "event_type": "FP",
+      "pred_idx": 4,
+      "ref_idx": null,
+      "pred_start_s": 8382.0,
+      "pred_end_s": 8447.0,
+      "pred_duration_s": 65.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_10",
+      "event_type": "FP",
+      "pred_idx": 5,
+      "ref_idx": null,
+      "pred_start_s": 11681.0,
+      "pred_end_s": 11688.0,
+      "pred_duration_s": 7.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_10",
+      "event_type": "FP",
+      "pred_idx": 6,
+      "ref_idx": null,
+      "pred_start_s": 11703.0,
+      "pred_end_s": 11750.0,
+      "pred_duration_s": 47.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_10",
+      "event_type": "FP",
+      "pred_idx": 7,
+      "ref_idx": null,
+      "pred_start_s": 11774.0,
+      "pred_end_s": 11775.0,
+      "pred_duration_s": 1.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_12",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 2611.0,
+      "pred_end_s": 2663.0,
+      "pred_duration_s": 52.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_13",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 0,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 506.0,
+      "ref_end_s": 519.0,
+      "ref_duration_s": 13.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_17",
+      "event_type": "FP",
+      "pred_idx": 0,
+      "ref_idx": null,
+      "pred_start_s": 179.0,
+      "pred_end_s": 183.0,
+      "pred_duration_s": 4.0,
+      "ref_start_s": null,
+      "ref_end_s": null,
+      "ref_duration_s": null,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_18",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 0,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 7799.0,
+      "ref_end_s": 7811.0,
+      "ref_duration_s": 12.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    },
+    {
+      "record_id": "chb06_24",
+      "event_type": "FN",
+      "pred_idx": null,
+      "ref_idx": 0,
+      "pred_start_s": null,
+      "pred_end_s": null,
+      "pred_duration_s": null,
+      "ref_start_s": 9387.0,
+      "ref_end_s": 9403.0,
+      "ref_duration_s": 16.0,
+      "overlap_s": 0.0,
+      "latency_to_onset_s": null
+    }
+  ],
+  "eval_config": {
+    "window_step_s": 1.0,
+    "pre_ictal_tolerance_s": 0.0,
+    "post_ictal_tolerance_s": 0.0,
+    "min_overlap_s": 0.0,
+    "eps": 1e-08
+  },
+  "postprocess_config": {
+    "window_step_s": 1.0,
+    "smoothing": "moving_average",
+    "smoothing_size": 1,
+    "threshold": 0.2,
+    "use_hysteresis": false,
+    "threshold_on": 0.2,
+    "threshold_off": 0.1,
+    "min_event_duration_s": 1.0,
+    "merge_gap_s": 5.0,
+    "max_event_duration_s": null,
+    "clip_probs": true,
+    "eps": 1e-08
+  }
+}

@@ -1,21 +1,5 @@
-"""
-run_clinical_eval.py
-
-Evaluador clínico universal para CHB-MIT usando metadata por registro.
-
-Versión 3:
-- lee metadata_chbmit_etiquetado.csv,
-- reconstruye record_id desde la columna `archivo`,
-- usa la columna `crisis` como eventos de referencia,
-- busca predicciones por registro,
-- hace barrido GLOBAL de postprocesado,
-- elige una única configuración global para todos los registros,
-- guarda resultados globales, por registro y la configuración óptima.
-"""
-
 from pathlib import Path
 import json
-import ast
 from itertools import product
 
 import numpy as np
@@ -29,19 +13,21 @@ from src.utils.evaluador_clinico import (
 )
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-INDEX_CSV = PROJECT_ROOT / "src" / "utils" / "metadata_chbmit_etiquetado.csv"
-PREDICTIONS_DIR = PROJECT_ROOT / "experiments" / "predictions" / "spatio_temporal_cnn" / "def"
-OUTPUT_DIR = PROJECT_ROOT / "experiments" / "clinical_eval" / "spatio_temporal_cnn" / "def"
+
+INDEX_CSV = PROJECT_ROOT / "data" / "CHBMIT" / "processed" / "ventana1s" / "chbmit_index_val_56.csv"
+PREDICTIONS_DIR = PROJECT_ROOT / "experiments" / "predictions" / "attention_cnn" / "def"
+OUTPUT_DIR = PROJECT_ROOT / "experiments" / "clinical_eval" / "attention_cnn" / "def_noAgresivo"
+
+VAL_PATIENTS = ("chb05", "chb06")
 WINDOW_STEP_S = 1.0
 
-# Rejilla global de postprocesado
-THRESHOLDS = [0.60, 0.70, 0.75, 0.80, 0.85]
-MOVING_AVG_SIZES = [1, 3, 5]
-MIN_EVENT_DURATIONS = [5.0, 10.0, 15.0]
-MERGE_GAPS = [0.0, 5.0, 10.0]
-MAX_EVENT_DURATIONS = [None, 60.0, 120.0]
+# Rejilla global común para todos los modelos
+THRESHOLDS = [0.20, 0.30, 0.40, 0.50, 0.60]
+MOVING_AVG_SIZES = [1, 3]
+MIN_EVENT_DURATIONS = [1.0, 3.0, 5.0]
+MERGE_GAPS = [0.0, 3.0, 5.0]
+MAX_EVENT_DURATIONS = [None, 60.0]
 
-# Criterio clínico
 MIN_GLOBAL_SENSITIVITY = 0.80
 FA_PENALTY = 0.10
 
@@ -50,55 +36,56 @@ def ensure_dir(path: Path):
     path.mkdir(parents=True, exist_ok=True)
 
 
-def extract_record_id_from_archivo(x: str) -> str:
-    stem = Path(str(x)).stem
-    return stem.replace("+", "")
-
-
-def parse_crisis_column(value):
-    if pd.isna(value):
-        return []
-
-    s = str(value).strip()
-    if s in ("", "[]", "nan", "None"):
-        return []
-
-    try:
-        parsed = ast.literal_eval(s)
-        if isinstance(parsed, tuple):
-            parsed = [parsed]
-
-        out = []
-        for ev in parsed:
-            if isinstance(ev, (list, tuple)) and len(ev) == 2:
-                start, end = float(ev[0]), float(ev[1])
-                if end < start:
-                    start, end = end, start
-                out.append((start, end))
-        return out
-    except Exception:
-        return []
-
-
-def load_metadata_records(csv_path: Path):
+def load_index_records(csv_path: Path, target_patients=VAL_PATIENTS):
     df = pd.read_csv(csv_path)
-    required = {"paciente", "archivo", "crisis", "total_crisis"}
+
+    required = {
+        "patient_id", "record_id", "filepath", "window_index",
+        "start_sec", "end_sec", "label"
+    }
     missing = required - set(df.columns)
     if missing:
-        raise ValueError(f"Faltan columnas en metadata: {missing}")
+        raise ValueError(f"Faltan columnas en chbmit_index.csv: {missing}")
 
-    df["record_id"] = df["archivo"].apply(extract_record_id_from_archivo)
+    df = df[df["patient_id"].isin(target_patients)].copy()
+    df = df.sort_values(["patient_id", "record_id", "window_index"]).reset_index(drop=True)
+
     records = {}
 
-    for _, row in df.iterrows():
-        record_id = row["record_id"]
-        ref_events = parse_crisis_column(row["crisis"])
+    for record_id, group in df.groupby("record_id", sort=False):
+        group = group.sort_values("window_index").reset_index(drop=True)
+
+        ref_events = []
+        in_event = False
+        ev_start = None
+        ev_end = None
+
+        for _, row in group.iterrows():
+            label = int(row["label"])
+            start_s = float(row["start_sec"])
+            end_s = float(row["end_sec"])
+
+            if label == 1 and not in_event:
+                in_event = True
+                ev_start = start_s
+                ev_end = end_s
+            elif label == 1 and in_event:
+                ev_end = end_s
+            elif label == 0 and in_event:
+                ref_events.append((ev_start, ev_end))
+                in_event = False
+                ev_start, ev_end = None, None
+
+        if in_event:
+            ref_events.append((ev_start, ev_end))
+
+        first_row = group.iloc[0]
         records[record_id] = {
-            "patient_id": row["paciente"],
+            "patient_id": first_row["patient_id"],
             "record_id": record_id,
-            "source_file": row["archivo"],
+            "source_file": first_row["filepath"],
             "ref_events": ref_events,
-            "total_crisis": int(row["total_crisis"]),
+            "n_windows": int(len(group)),
         }
 
     return records
@@ -112,7 +99,7 @@ def save_reference_events_json(ref_dict, out_path: Path):
             "record_id": info["record_id"],
             "source_file": info["source_file"],
             "ref_events": [list(ev) for ev in info["ref_events"]],
-            "total_crisis": info["total_crisis"],
+            "n_windows": info["n_windows"],
         }
     out_path.write_text(json.dumps(serializable, indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -175,11 +162,29 @@ def build_dataset_records(ref_dict):
         pred_file = find_prediction_file(record_id, PREDICTIONS_DIR)
         if pred_file is None:
             skipped_records.append(record_id)
+            print(f"[SKIP] {record_id} sin archivo de predicción")
             continue
 
         y_pred_prob = normalize_prediction_array(load_prediction_array(str(pred_file)))
         ref_events = record_info["ref_events"]
         record_duration_s = float(len(y_pred_prob)) * WINDOW_STEP_S
+
+        print(
+            f"[MATCH] {record_id} | "
+            f"n_probs={len(y_pred_prob)} | "
+            f"n_ref_windows={record_info['n_windows']} | "
+            f"n_ref_events={len(ref_events)} | "
+            f"duration_s={record_duration_s}"
+        )
+
+        print(
+            f"[STATS] {record_id} | "
+            f"min={float(np.min(y_pred_prob)):.4f} "
+            f"max={float(np.max(y_pred_prob)):.4f} "
+            f"mean={float(np.mean(y_pred_prob)):.4f} "
+            f"p95={float(np.percentile(y_pred_prob, 95)):.4f} "
+            f">=0.5={int((y_pred_prob >= 0.5).sum())}"
+        )
 
         dataset_records.append({
             "record_id": record_id,
@@ -285,94 +290,145 @@ def search_best_global_config(dataset_records):
         }
         grid_results.append(row)
 
-        # Orden: mejor score, luego menor FA/h, luego mayor sensibilidad
-        key = (score, -global_metrics["fa_per_hour"], global_metrics["event_sensitivity"])
-        if best is None or key > best[0]:
-            best = (key, config, global_metrics)
-
         print(
             f"[{idx:03d}/{total}] "
-            f"thr={thr:.2f} ma={ma} min_dur={min_dur:.0f} gap={gap:.0f} max_dur={max_dur} | "
+            f"thr={thr:.2f} ma={ma} min_dur={min_dur:.1f} gap={gap:.1f} max_dur={max_dur} | "
             f"sens={global_metrics['event_sensitivity']:.4f} "
             f"f1={global_metrics['event_f1']:.4f} "
             f"fa/h={global_metrics['fa_per_hour']:.4f} "
             f"score={score:.4f}"
         )
 
+        key = (score, -global_metrics["fa_per_hour"], global_metrics["event_sensitivity"])
+        if best is None or key > best["key"]:
+            best = {
+                "key": key,
+                "row": row.copy(),
+                "config_obj": config,
+            }
+
     grid_df = pd.DataFrame(grid_results).sort_values(
         by=["score", "event_sensitivity", "fa_per_hour", "event_f1"],
         ascending=[False, False, True, False],
     )
-    return best[1], best[2], grid_df
+
+    return best, grid_df
+
+
+def list_prediction_record_ids(predictions_dir: Path):
+    pred_ids = []
+    for ext in ("*.pt", "*.npy", "*.npz"):
+        for p in predictions_dir.glob(ext):
+            pred_ids.append(p.stem)
+    return sorted(set(pred_ids))
+
+
+def debug_alignment(ref_dict, predictions_dir: Path, max_show: int = 20):
+    ref_ids = sorted(ref_dict.keys())
+    pred_ids = list_prediction_record_ids(predictions_dir)
+
+    ref_set = set(ref_ids)
+    pred_set = set(pred_ids)
+
+    common_ids = sorted(ref_set & pred_set)
+    missing_pred = sorted(ref_set - pred_set)
+    extra_pred = sorted(pred_set - ref_set)
+
+    print("\n=== DEBUG ALIGNMENT ===")
+    print(f"Referencia record_ids : {len(ref_ids)}")
+    print(f"Predicción record_ids : {len(pred_ids)}")
+    print(f"Coinciden            : {len(common_ids)}")
+    print(f"Sin predicción       : {len(missing_pred)}")
+    print(f"Pred extras          : {len(extra_pred)}")
+
+    print("\nPrimeros record_ids de referencia:")
+    print(ref_ids[:max_show])
+
+    print("\nPrimeros record_ids de predicción:")
+    print(pred_ids[:max_show])
+
+    if missing_pred:
+        print("\nRecord_ids sin predicción:")
+        print(missing_pred[:max_show])
+
+    if extra_pred:
+        print("\nRecord_ids extra en predicciones:")
+        print(extra_pred[:max_show])
+
+    print("\nResumen de eventos de referencia:")
+    positive_records = []
+    for rid in ref_ids:
+        n_events = len(ref_dict[rid]["ref_events"])
+        if n_events > 0:
+            positive_records.append((rid, n_events, ref_dict[rid].get("patient_id", "NA")))
+
+    print(f"Registros con al menos 1 evento real: {len(positive_records)}")
+    print(positive_records[:max_show])
 
 
 def main():
     ensure_dir(OUTPUT_DIR)
 
-    print("Reconstruyendo eventos de referencia desde metadata_chbmit_etiquetado.csv...")
-    ref_dict = load_metadata_records(INDEX_CSV)
+    print(f"INDEX_CSV       : {INDEX_CSV}")
+    print(f"PREDICTIONS_DIR : {PREDICTIONS_DIR}")
+    print(f"OUTPUT_DIR      : {OUTPUT_DIR}")
 
-    ref_json_path = OUTPUT_DIR / "reference_events.json"
-    save_reference_events_json(ref_dict, ref_json_path)
-    print(f"Eventos de referencia guardados en: {ref_json_path}")
+    ref_dict = load_index_records(INDEX_CSV, target_patients=VAL_PATIENTS)
+    debug_alignment(ref_dict, PREDICTIONS_DIR, max_show=30)
+    save_reference_events_json(ref_dict, OUTPUT_DIR / "reference_events.json")
 
     dataset_records, skipped_records = build_dataset_records(ref_dict)
 
+    (OUTPUT_DIR / "skipped_records.json").write_text(
+        json.dumps(skipped_records, indent=2, ensure_ascii=False),
+        encoding="utf-8"
+    )
+
     if len(dataset_records) == 0:
-        print("No hay registros válidos para evaluar.")
-        print("Revisa el directorio de predicciones y el formato de los archivos.")
-        return
+        raise RuntimeError("No hay registros con predicción para evaluar.")
 
-    print(f"Registros evaluados: {len(dataset_records)}")
-    print(f"Registros omitidos: {len(skipped_records)}")
+    best, grid_df = search_best_global_config(dataset_records)
+    grid_df.to_csv(OUTPUT_DIR / "postprocessing_grid_search.csv", index=False)
 
-    best_config, best_global_metrics, grid_df = search_best_global_config(dataset_records)
+    best_config = best["config_obj"]
+    global_metrics, per_record_rows = evaluate_with_config(dataset_records, best_config)
+    global_metrics = clamp_non_negative_latency(global_metrics)
+
+    save_global_metrics(global_metrics, OUTPUT_DIR / "metrics_global.csv")
+    save_per_record_metrics(per_record_rows, OUTPUT_DIR / "metrics_per_record.csv")
+
+    (OUTPUT_DIR / "metrics_global.json").write_text(
+        json.dumps(global_metrics, indent=2, ensure_ascii=False, default=str),
+        encoding="utf-8"
+    )
+    (OUTPUT_DIR / "best_postprocessing_config.json").write_text(
+        json.dumps(best_config.to_dict(), indent=2, ensure_ascii=False),
+        encoding="utf-8"
+    )
 
     print("\n=== MEJOR CONFIG GLOBAL ===")
     print(best_config)
 
-    final_global_metrics, per_record_rows = evaluate_with_config(dataset_records, best_config)
-    final_global_metrics = clamp_non_negative_latency(final_global_metrics)
-
-    per_record_csv = OUTPUT_DIR / "metrics_per_record.csv"
-    global_csv = OUTPUT_DIR / "metrics_global.csv"
-    global_json = OUTPUT_DIR / "metrics_global.json"
-    skipped_json = OUTPUT_DIR / "skipped_records.json"
-    grid_csv = OUTPUT_DIR / "postprocessing_grid_search.csv"
-    best_cfg_json = OUTPUT_DIR / "best_postprocessing_config.json"
-
-    save_per_record_metrics(per_record_rows, per_record_csv)
-    save_global_metrics(final_global_metrics, global_csv)
-
-    grid_df.to_csv(grid_csv, index=False)
-    skipped_json.write_text(json.dumps(skipped_records, indent=2, ensure_ascii=False), encoding="utf-8")
-    global_json.write_text(json.dumps(final_global_metrics, indent=2, ensure_ascii=False, default=str), encoding="utf-8")
-    best_cfg_json.write_text(json.dumps(best_config.to_dict(), indent=2, ensure_ascii=False), encoding="utf-8")
-
     print("\n=== RESULTADOS GLOBALES ===")
-    print(f"n_records : {final_global_metrics['n_records']}")
-    print(f"TP events : {final_global_metrics['tp_event']}")
-    print(f"FP events : {final_global_metrics['fp_event']}")
-    print(f"FN events : {final_global_metrics['fn_event']}")
-    print(f"Sensibilidad evento: {final_global_metrics['event_sensitivity']:.4f}")
-    print(f"Precisión evento : {final_global_metrics['event_precision']:.4f}")
-    print(f"F1 evento : {final_global_metrics['event_f1']:.4f}")
-    print(f"FA/h : {final_global_metrics['fa_per_hour']:.4f}")
-    print(f"Latencia media (s) : {final_global_metrics['mean_latency_s']}")
-    print(f"Latencia mediana(s): {final_global_metrics['median_latency_s']}")
-
-    print("\n=== CONFIG ÓPTIMA ===")
-    for k, v in best_config.to_dict().items():
-        print(f"{k}: {v}")
+    print(f"n_records : {global_metrics['n_records']}")
+    print(f"TP events : {global_metrics['tp_event']}")
+    print(f"FP events : {global_metrics['fp_event']}")
+    print(f"FN events : {global_metrics['fn_event']}")
+    print(f"Sensibilidad evento: {global_metrics['event_sensitivity']:.4f}")
+    print(f"Precisión evento : {global_metrics['event_precision']:.4f}")
+    print(f"F1 evento : {global_metrics['event_f1']:.4f}")
+    print(f"FA/h : {global_metrics['fa_per_hour']:.4f}")
+    print(f"Latencia media (s) : {global_metrics['mean_latency_s']}")
+    print(f"Latencia mediana(s): {global_metrics['median_latency_s']}")
 
     print("\nArchivos generados:")
-    print(f"- {per_record_csv}")
-    print(f"- {global_csv}")
-    print(f"- {global_json}")
-    print(f"- {grid_csv}")
-    print(f"- {best_cfg_json}")
-    print(f"- {ref_json_path}")
-    print(f"- {skipped_json}")
+    print(f"- {OUTPUT_DIR / 'reference_events.json'}")
+    print(f"- {OUTPUT_DIR / 'skipped_records.json'}")
+    print(f"- {OUTPUT_DIR / 'postprocessing_grid_search.csv'}")
+    print(f"- {OUTPUT_DIR / 'metrics_global.csv'}")
+    print(f"- {OUTPUT_DIR / 'metrics_per_record.csv'}")
+    print(f"- {OUTPUT_DIR / 'metrics_global.json'}")
+    print(f"- {OUTPUT_DIR / 'best_postprocessing_config.json'}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,473 @@
+{
+  "chb05_01": {
+    "patient_id": "chb05",
+    "record_id": "chb05_01",
+    "source_file": "chb05_01.edf",
+    "ref_events": [],
+    "n_windows": 3610
+  },
+  "chb05_02": {
+    "patient_id": "chb05",
+    "record_id": "chb05_02",
+    "source_file": "chb05_02.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_03": {
+    "patient_id": "chb05",
+    "record_id": "chb05_03",
+    "source_file": "chb05_03.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_04": {
+    "patient_id": "chb05",
+    "record_id": "chb05_04",
+    "source_file": "chb05_04.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_05": {
+    "patient_id": "chb05",
+    "record_id": "chb05_05",
+    "source_file": "chb05_05.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_06": {
+    "patient_id": "chb05",
+    "record_id": "chb05_06",
+    "source_file": "chb05_06.edf",
+    "ref_events": [
+      [
+        417.0,
+        532.0
+      ]
+    ],
+    "n_windows": 3600
+  },
+  "chb05_07": {
+    "patient_id": "chb05",
+    "record_id": "chb05_07",
+    "source_file": "chb05_07.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_08": {
+    "patient_id": "chb05",
+    "record_id": "chb05_08",
+    "source_file": "chb05_08.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_09": {
+    "patient_id": "chb05",
+    "record_id": "chb05_09",
+    "source_file": "chb05_09.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_10": {
+    "patient_id": "chb05",
+    "record_id": "chb05_10",
+    "source_file": "chb05_10.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_11": {
+    "patient_id": "chb05",
+    "record_id": "chb05_11",
+    "source_file": "chb05_11.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_12": {
+    "patient_id": "chb05",
+    "record_id": "chb05_12",
+    "source_file": "chb05_12.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_13": {
+    "patient_id": "chb05",
+    "record_id": "chb05_13",
+    "source_file": "chb05_13.edf",
+    "ref_events": [
+      [
+        1086.0,
+        1196.0
+      ]
+    ],
+    "n_windows": 3600
+  },
+  "chb05_14": {
+    "patient_id": "chb05",
+    "record_id": "chb05_14",
+    "source_file": "chb05_14.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_15": {
+    "patient_id": "chb05",
+    "record_id": "chb05_15",
+    "source_file": "chb05_15.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_16": {
+    "patient_id": "chb05",
+    "record_id": "chb05_16",
+    "source_file": "chb05_16.edf",
+    "ref_events": [
+      [
+        2317.0,
+        2413.0
+      ]
+    ],
+    "n_windows": 3600
+  },
+  "chb05_17": {
+    "patient_id": "chb05",
+    "record_id": "chb05_17",
+    "source_file": "chb05_17.edf",
+    "ref_events": [
+      [
+        2451.0,
+        2571.0
+      ]
+    ],
+    "n_windows": 3600
+  },
+  "chb05_18": {
+    "patient_id": "chb05",
+    "record_id": "chb05_18",
+    "source_file": "chb05_18.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_19": {
+    "patient_id": "chb05",
+    "record_id": "chb05_19",
+    "source_file": "chb05_19.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_20": {
+    "patient_id": "chb05",
+    "record_id": "chb05_20",
+    "source_file": "chb05_20.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_21": {
+    "patient_id": "chb05",
+    "record_id": "chb05_21",
+    "source_file": "chb05_21.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_22": {
+    "patient_id": "chb05",
+    "record_id": "chb05_22",
+    "source_file": "chb05_22.edf",
+    "ref_events": [
+      [
+        2348.0,
+        2465.0
+      ]
+    ],
+    "n_windows": 3600
+  },
+  "chb05_23": {
+    "patient_id": "chb05",
+    "record_id": "chb05_23",
+    "source_file": "chb05_23.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_24": {
+    "patient_id": "chb05",
+    "record_id": "chb05_24",
+    "source_file": "chb05_24.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_25": {
+    "patient_id": "chb05",
+    "record_id": "chb05_25",
+    "source_file": "chb05_25.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_26": {
+    "patient_id": "chb05",
+    "record_id": "chb05_26",
+    "source_file": "chb05_26.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_27": {
+    "patient_id": "chb05",
+    "record_id": "chb05_27",
+    "source_file": "chb05_27.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_28": {
+    "patient_id": "chb05",
+    "record_id": "chb05_28",
+    "source_file": "chb05_28.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_29": {
+    "patient_id": "chb05",
+    "record_id": "chb05_29",
+    "source_file": "chb05_29.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_30": {
+    "patient_id": "chb05",
+    "record_id": "chb05_30",
+    "source_file": "chb05_30.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_31": {
+    "patient_id": "chb05",
+    "record_id": "chb05_31",
+    "source_file": "chb05_31.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_32": {
+    "patient_id": "chb05",
+    "record_id": "chb05_32",
+    "source_file": "chb05_32.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_33": {
+    "patient_id": "chb05",
+    "record_id": "chb05_33",
+    "source_file": "chb05_33.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_34": {
+    "patient_id": "chb05",
+    "record_id": "chb05_34",
+    "source_file": "chb05_34.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_35": {
+    "patient_id": "chb05",
+    "record_id": "chb05_35",
+    "source_file": "chb05_35.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_36": {
+    "patient_id": "chb05",
+    "record_id": "chb05_36",
+    "source_file": "chb05_36.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_37": {
+    "patient_id": "chb05",
+    "record_id": "chb05_37",
+    "source_file": "chb05_37.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_38": {
+    "patient_id": "chb05",
+    "record_id": "chb05_38",
+    "source_file": "chb05_38.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb05_39": {
+    "patient_id": "chb05",
+    "record_id": "chb05_39",
+    "source_file": "chb05_39.edf",
+    "ref_events": [],
+    "n_windows": 3600
+  },
+  "chb06_01": {
+    "patient_id": "chb06",
+    "record_id": "chb06_01",
+    "source_file": "chb06_01.edf",
+    "ref_events": [
+      [
+        1724.0,
+        1738.0
+      ],
+      [
+        7461.0,
+        7476.0
+      ],
+      [
+        13525.0,
+        13540.0
+      ]
+    ],
+    "n_windows": 14427
+  },
+  "chb06_02": {
+    "patient_id": "chb06",
+    "record_id": "chb06_02",
+    "source_file": "chb06_02.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_03": {
+    "patient_id": "chb06",
+    "record_id": "chb06_03",
+    "source_file": "chb06_03.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_04": {
+    "patient_id": "chb06",
+    "record_id": "chb06_04",
+    "source_file": "chb06_04.edf",
+    "ref_events": [
+      [
+        327.0,
+        347.0
+      ],
+      [
+        6211.0,
+        6231.0
+      ]
+    ],
+    "n_windows": 13261
+  },
+  "chb06_05": {
+    "patient_id": "chb06",
+    "record_id": "chb06_05",
+    "source_file": "chb06_05.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_06": {
+    "patient_id": "chb06",
+    "record_id": "chb06_06",
+    "source_file": "chb06_06.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_07": {
+    "patient_id": "chb06",
+    "record_id": "chb06_07",
+    "source_file": "chb06_07.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_08": {
+    "patient_id": "chb06",
+    "record_id": "chb06_08",
+    "source_file": "chb06_08.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_09": {
+    "patient_id": "chb06",
+    "record_id": "chb06_09",
+    "source_file": "chb06_09.edf",
+    "ref_events": [
+      [
+        12500.0,
+        12516.0
+      ]
+    ],
+    "n_windows": 14400
+  },
+  "chb06_10": {
+    "patient_id": "chb06",
+    "record_id": "chb06_10",
+    "source_file": "chb06_10.edf",
+    "ref_events": [
+      [
+        10833.0,
+        10845.0
+      ]
+    ],
+    "n_windows": 14400
+  },
+  "chb06_12": {
+    "patient_id": "chb06",
+    "record_id": "chb06_12",
+    "source_file": "chb06_12.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_13": {
+    "patient_id": "chb06",
+    "record_id": "chb06_13",
+    "source_file": "chb06_13.edf",
+    "ref_events": [
+      [
+        506.0,
+        519.0
+      ]
+    ],
+    "n_windows": 14400
+  },
+  "chb06_14": {
+    "patient_id": "chb06",
+    "record_id": "chb06_14",
+    "source_file": "chb06_14.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_15": {
+    "patient_id": "chb06",
+    "record_id": "chb06_15",
+    "source_file": "chb06_15.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_16": {
+    "patient_id": "chb06",
+    "record_id": "chb06_16",
+    "source_file": "chb06_16.edf",
+    "ref_events": [],
+    "n_windows": 3030
+  },
+  "chb06_17": {
+    "patient_id": "chb06",
+    "record_id": "chb06_17",
+    "source_file": "chb06_17.edf",
+    "ref_events": [],
+    "n_windows": 14400
+  },
+  "chb06_18": {
+    "patient_id": "chb06",
+    "record_id": "chb06_18",
+    "source_file": "chb06_18.edf",
+    "ref_events": [
+      [
+        7799.0,
+        7811.0
+      ]
+    ],
+    "n_windows": 7928
+  },
+  "chb06_24": {
+    "patient_id": "chb06",
+    "record_id": "chb06_24",
+    "source_file": "chb06_24.edf",
+    "ref_events": [
+      [
+        9387.0,
+        9403.0
+      ]
+    ],
+    "n_windows": 14400
+  }
+}
