@@ -1,17 +1,55 @@
-# Ignorar TODA la carpeta de datos, no importa lo que haya dentro
-data/
-
-# Ignorar archivos pesados por extensión (por si están fuera de /data)
+# Datos locales; anotaciones/documentación versionables.
+/data/*
+!/data/README.md
+!/data/.gitkeep
+!/data/metadata/
 *.edf
 *.bin
-*.npy
-*.pdf
 
-# Python y Entornos
+# Python, notebooks y entornos.
 __pycache__/
-*.pyc
+*.py[cod]
 .ipynb_checkpoints/
+.venv/
+venv/
+env/
+.conda/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
 
-# Resultados
+# Generados locales; pesos finales, métricas y figuras NO se ignoran.
 checkpoints/
-experiments/predictions/
+/experiments/predictions/
+/experiments/clinical_eval/**/intermediates/*.npy
+*.log
+!/experiments/logs/train_eegnet_8pat.log
+/docs/thesis/working/
+/scratch_edit/
+
+# Configuración privada y temporales.
+.claude/settings.local.json
+.vscode/
+.idea/
+.env
+.env.*
+!.env.example
+*.tmp
+*.temp
+~$*.docx
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Material editorial e inventarios privados: conservar solo en local.
+/docs/thesis/
+/docs/reference/
+/docs/notes/
+/scripts/thesis_legacy/
+/experiments/xai/*.npy
+/docs/reorganization/inventory_before.csv
+/docs/reorganization/*.original.*
+/docs/reorganization/*.local.*

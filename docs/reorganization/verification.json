@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-03",
+  "moved_files": 78,
+  "original_files": 12917,
+  "missing_files": [],
+  "unexpected_changes": [],
+  "sha256_unchanged_files": 2262,
+  "size_only_verified_files": 10608,
+  "python_syntax_files": 46,
+  "runtime_checks": {
+    "environment": "Existing tfm_eeg, Python 3.10 / PyTorch 2.5.1+cu121",
+    "safe_module_imports": 11,
+    "principal_cli_help_checks": 2,
+    "checkpoint_forward_checks": 5,
+    "clinical_synthetic_test": "1 TP, 1 FP, 0 FN",
+    "notebooks_valid": 6,
+    "notebooks_output_metadata_preserved": 6,
+    "historical_invalid_notebooks": [
+      "notebooks/legacy/XAI.ipynb"
+    ],
+    "scoped_gitignore": "passed",
+    "principal_data_paths": "passed",
+    "dependency_versions": "All direct requirements match the existing environment, ignoring the CUDA local version suffix.",
+    "new_documentation_links": "All local links resolve.",
+    "git_diff_check": "passed"
+  },
+  "not_run": [
+    "training",
+    "full inference",
+    "preprocessing",
+    "editorial scripts",
+    "notebook execution",
+    "clean environment installation"
+  ],
+  "dataset_verification": "File presence and size only; no full hashing of 272 GiB of datasets.",
+  "publication": {
+    "scope": "Code, technical documentation, reviewed historical notebooks, metrics, configurations, checkpoints and figures",
+    "excluded": "Thesis documents, backups, reviews, internal notes, editorial scripts, local inventory, original machine exports and full XAI attributions",
+    "public_moves": 38
+  }
+}
